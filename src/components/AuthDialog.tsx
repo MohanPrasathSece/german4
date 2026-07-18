@@ -143,7 +143,7 @@ export const AuthDialog = ({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="p-0 max-w-[900px] overflow-hidden rounded-[28px] border-0 shadow-[0_25px_80px_rgba(0,0,0,0.4)] bg-transparent">
+      <DialogContent className="p-0 w-[95vw] sm:w-full max-w-[900px] overflow-hidden rounded-[24px] sm:rounded-[28px] border-0 shadow-[0_25px_80px_rgba(0,0,0,0.4)] bg-transparent">
         <div className="flex h-full min-h-[580px] rounded-[28px] overflow-hidden">
 
           {/* Left Panel - Branding */}
@@ -201,7 +201,7 @@ export const AuthDialog = ({
           </div>
 
           {/* Right Panel - Form */}
-          <div className="flex-1 bg-white flex flex-col justify-center px-10 py-12 rounded-r-[28px]">
+          <div className="flex-1 bg-white flex flex-col justify-center px-6 py-8 sm:px-10 sm:py-12 rounded-r-[28px]">
             {/* Mobile logo */}
             <div className="lg:hidden mb-8">
               <div className="font-bold text-xl tracking-widest text-gray-900">NOVA ASSETS</div>
