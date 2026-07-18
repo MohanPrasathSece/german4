@@ -6,6 +6,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import ContactForm from "@/components/ContactForm";
 import Ticker from "@/components/Ticker";
 import TradingCandles from "@/components/TradingCandles";
+import { AuthDialog } from "@/components/AuthDialog";
 
 const Index = () => {
   useEffect(() => {
@@ -35,9 +36,11 @@ const Index = () => {
               Unlock the power of digital assets with Nova Assets. We provide secure, data-driven crypto investment strategies for the modern investor. Spots are strictly limited to maintain high yield percentages.
             </p>
             <div className="flex gap-4">
-              <a href="#contact" className="px-8 py-4 bg-foreground text-background hover:opacity-90 rounded-full font-semibold transition-all">
-                Claim Your Spot Now
-              </a>
+              <AuthDialog defaultView="signup">
+                <button className="px-8 py-4 bg-foreground text-background hover:opacity-90 rounded-full font-semibold transition-all shadow-xl">
+                  Claim Your Spot Now
+                </button>
+              </AuthDialog>
               <a href="#about" className="px-8 py-4 bg-background border border-border hover:bg-muted rounded-full font-semibold transition-all">
                 Learn More
               </a>
