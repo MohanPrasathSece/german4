@@ -130,7 +130,83 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Section 4: Contact Us */}
+      {/* Section 4: How It Works */}
+      <section className="py-24 px-6 lg:px-12 bg-foreground text-background relative overflow-hidden border-t border-border">
+        {/* Subtle background texture */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+        />
+        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-red-600/10 blur-[100px] pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <ScrollReveal>
+            <div className="text-center mb-20">
+              <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/60 font-bold text-xs tracking-widest mb-6 uppercase">
+                The Process
+              </div>
+              <h2 className="text-4xl lg:text-5xl font-bold text-background leading-tight tracking-tight">
+                From Registration to <span className="opacity-60 font-serif italic">Active Returns</span>
+              </h2>
+              <p className="mt-4 text-background/50 max-w-2xl mx-auto text-lg">
+                We've eliminated all friction. Our onboarding is deliberately streamlined so your capital starts compounding immediately.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+            {/* Connecting line (desktop) */}
+            <div className="hidden md:block absolute top-14 left-[20%] right-[20%] h-[1px] bg-white/10" />
+
+            {[
+              {
+                step: "01",
+                title: "Secure Registration",
+                desc: "Submit your details through our encrypted onboarding form. Your information is immediately isolated within a zero-trust security perimeter.",
+              },
+              {
+                step: "02",
+                title: "Portfolio Allocation",
+                desc: "Your dedicated advisor structures a bespoke capital allocation plan, selecting the highest-yielding liquidity pools available to your tier.",
+              },
+              {
+                step: "03",
+                title: "Compound & Grow",
+                desc: "Our algorithms activate immediately. Every cycle, your earnings are automatically reinvested, creating an accelerating compounding loop.",
+              },
+            ].map((s, i) => (
+              <ScrollReveal key={i} delay={0.15 * i}>
+                <div className="relative p-10 rounded-[32px] bg-white/5 border border-white/10 hover:bg-white/8 transition-all group">
+                  <div className="text-7xl font-black text-white/5 group-hover:text-white/10 transition-colors absolute top-6 right-8 select-none">
+                    {s.step}
+                  </div>
+                  <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mb-6">
+                    <span className="text-background font-bold text-sm">{s.step}</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-background mb-3">{s.title}</h3>
+                  <p className="text-background/50 leading-relaxed text-sm">{s.desc}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          <ScrollReveal delay={0.4}>
+            <div className="mt-16 text-center">
+              <AuthDialog defaultView="signup">
+                <button className="px-10 py-4 bg-background text-foreground hover:bg-background/90 rounded-full font-bold text-sm tracking-wide transition-all shadow-2xl shadow-black/30">
+                  Begin Your Onboarding
+                </button>
+              </AuthDialog>
+              <p className="mt-4 text-background/30 text-xs">Limited positions available. Enrollment closes without notice.</p>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Section 5: Contact Us */}
       <section id="contact" className="py-24 px-6 lg:px-12 bg-muted/50 border-t border-border">
         <div className="max-w-3xl mx-auto">
           <ScrollReveal>

@@ -71,11 +71,17 @@ export default async function handler(req: any, res: any) {
     }
 
     // 2. Vercel Blob Signup
+    const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
+    if (!blobToken) {
+      console.warn("[Signup] BLOB_READ_WRITE_TOKEN not set - skipping blob storage");
+      return res.status(200).json({ success: true, message: "Account registered" });
+    }
+
     const userPath = `users/${email}.json`;
     
     try {
       // Check if user already exists
-      await head(userPath);
+      await head(userPath, { token: blobToken });
       return res.status(409).json({ error: "Account already exists" });
     } catch (error: any) {
       // User doesn't exist, proceed to create
@@ -84,7 +90,8 @@ export default async function handler(req: any, res: any) {
     // Save user profile to Blob
     await put(userPath, JSON.stringify({ name, email, phone, country, createdAt: new Date().toISOString() }), {
       access: "public",
-      addRandomSuffix: false
+      addRandomSuffix: false,
+      token: blobToken
     });
 
     // Create session token
@@ -92,7 +99,8 @@ export default async function handler(req: any, res: any) {
     const sessionPath = `sessions/${sessionToken}.json`;
     await put(sessionPath, JSON.stringify({ email, createdAt: new Date().toISOString() }), {
       access: "public",
-      addRandomSuffix: false
+      addRandomSuffix: false,
+      token: blobToken
     });
 
     return res.status(200).json({ success: true, sessionToken, message: "Account created" });
