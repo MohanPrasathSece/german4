@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Navbar from "@/components/Navbar";
+import DashboardNavbar from "@/components/DashboardNavbar";
 import SEO from "@/components/SEO";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -21,7 +21,7 @@ const CryptoDashboard = () => {
         title="Dashboard | Nova Assets"
         description="Your Crypto Investment Dashboard."
       />
-      <Navbar />
+      <DashboardNavbar />
 
       {/* Hero Section */}
       <section className="pt-40 pb-24 px-6 lg:px-12 relative flex items-center min-h-[60vh] border-b border-border">
@@ -37,15 +37,6 @@ const CryptoDashboard = () => {
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
               Your capital is now part of an exclusive liquidity pool. Here is exactly how we multiply your assets while you sleep.
             </p>
-            <button 
-              onClick={async () => {
-                 await fetch("/api/auth/logout", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sessionToken: "dummy" }) });
-                 window.location.href = "/";
-              }}
-              className="px-6 py-2 border border-border rounded-full hover:bg-muted text-sm font-medium transition-colors"
-            >
-              Secure Log Out
-            </button>
           </ScrollReveal>
         </div>
       </section>
