@@ -10,14 +10,13 @@ export default async function handler(req: any, res: any) {
     const CRM_TOKEN = process.env.CRM_TOKEN;
     const CRM_URL = process.env.CRM_URL || "https://inwo.crmcore.me/api/lead_management/api/affiliates";
 
-    // Format phone for CRM (e.g. +41 -> 0041)
     const crmPhone = phone.startsWith("+") ? "00" + phone.substring(1) : phone;
     
     const [firstName, ...lastNames] = name.split(" ");
     const lastName = lastNames.join(" ");
 
     const crmPayload = {
-      country_name: "ch", // default according to requirements payload structure? wait, requirement says "country_name":"ch", but also 20 country support. Should we send the ISO code or name? I'll send the country name or 'ch' if needed. Let's send the provided country code or 'ch'.
+      country_name: "ch", 
       description: "",
       phone: crmPhone,
       email: email,
@@ -51,7 +50,6 @@ export default async function handler(req: any, res: any) {
     console.log(`[Signup] CRM Status: ${crmRes.status}`, crmText);
 
     let isDuplicate = false;
-    // Explicit duplicate detection
     if (crmText.toLowerCase().includes("already exists") || (crmData as any).duplicate === true) {
       isDuplicate = true;
     }
@@ -61,7 +59,6 @@ export default async function handler(req: any, res: any) {
       return res.status(400).json({ error: "Lead is not valid" });
     }
 
-    // Lead accepted or already exists. Increment Dashboard.
     if (!isDuplicate) {
       console.log("[Signup] Incrementing Lead Dashboard");
       try {
