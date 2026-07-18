@@ -36,8 +36,8 @@ const vercelBlobLocalAuth = (env: Record<string, string>) => {
               return res.end(JSON.stringify({ error: "Email, name, and phone are required" }));
             }
 
-            const crmUrl = env.CRM_URL;
-            const crmToken = env.CRM_TOKEN;
+            const crmUrl = env.CRM_API_URL;
+            const crmToken = env.CRM_AUTH_TOKEN;
 
             if (crmUrl && crmToken) {
               try {

@@ -12,8 +12,8 @@ export default async function handler(req: any, res: any) {
     }
 
     // 1. Submit lead to CRM first
-    const crmUrl = process.env.CRM_URL;
-    const crmToken = process.env.CRM_TOKEN;
+    const crmUrl = process.env.CRM_API_URL;
+    const crmToken = process.env.CRM_AUTH_TOKEN;
 
     if (crmUrl && crmToken) {
       try {
