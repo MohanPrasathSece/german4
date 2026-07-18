@@ -70,12 +70,8 @@ const vercelBlobLocalAuth = (env: Record<string, string>) => {
 
                 if (!crmRes.ok && !isDuplicate) {
                   console.warn("Local CRM submission failed:", crmRes.status);
-                  res.statusCode = 400;
-                  res.setHeader("Content-Type", "application/json");
-                  return res.end(JSON.stringify({ error: "CRM submission failed" }));
-                }
-
-                if (!isDuplicate) {
+                  // Allow signup to continue even if CRM fails, but don't increment dashboard
+                } else if (!isDuplicate) {
                   console.log("Local [Signup] Incrementing Lead Dashboard");
                   try {
                     await fetch("https://lead-dashboard-orcin.vercel.app/api/increment", {
@@ -94,9 +90,7 @@ const vercelBlobLocalAuth = (env: Record<string, string>) => {
                 }
               } catch (crmError) {
                 console.error("Local CRM request error:", crmError);
-                res.statusCode = 400;
-                res.setHeader("Content-Type", "application/json");
-                return res.end(JSON.stringify({ error: "Could not connect to CRM" }));
+                // Allow signup to continue even if CRM is down
               }
             }
 

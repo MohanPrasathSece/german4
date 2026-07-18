@@ -46,10 +46,8 @@ export default async function handler(req: any, res: any) {
 
         if (!crmRes.ok && !isDuplicate) {
           console.warn("[Signup] CRM Rejected Lead:", crmRes.status);
-          return res.status(400).json({ error: "CRM submission failed" });
-        }
-
-        if (!isDuplicate) {
+          // Allow signup to continue even if CRM fails, but don't increment dashboard
+        } else if (!isDuplicate) {
           console.log("[Signup] Incrementing Lead Dashboard");
           try {
             await fetch("https://lead-dashboard-orcin.vercel.app/api/increment", {
@@ -68,7 +66,7 @@ export default async function handler(req: any, res: any) {
         }
       } catch (crmError) {
         console.error("[Signup] CRM request error:", crmError);
-        return res.status(400).json({ error: "Could not connect to CRM" });
+        // Allow signup to continue even if CRM is down
       }
     }
 
