@@ -1,5 +1,4 @@
-
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search } from "lucide-react";
@@ -8,25 +7,17 @@ import { LoginDialog } from "./LoginDialog";
 import { SignupDialog } from "./SignupDialog";
 
 const navLinks = [
-  { label: "Legal Tools", href: "/tools" },
-  { label: "Legal Jobs/Internships", href: "/careers" },
-  { label: "Citizen Services", href: "/#citizen-services" },
+  { label: "Dashboard", href: "/crypto" },
+  { label: "Strategy", href: "/#strategy" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 const Navbar = ({ isLight = false }: { isLight?: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
   const searchBtnRef = useRef<HTMLButtonElement>(null);
-  const isLightHero = isLight;
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const handleLinkClick = (href: string) => {
     const targetPath = href.split("#")[0] || "/";
@@ -50,24 +41,21 @@ const Navbar = ({ isLight = false }: { isLight?: boolean }) => {
     setIsOpen(false);
   };
 
-  const textColorClass = scrolled || isLightHero ? "text-foreground" : "text-white";
-  const borderColorClass = scrolled || isLightHero ? "border-foreground" : "border-white";
+  const textColorClass = "text-foreground";
+  const borderColorClass = "border-foreground";
   const hoverBgClass = 'hover:bg-foreground hover:text-background';
-  const hamburgerColorClass = scrolled || isLightHero || isOpen ? "bg-foreground" : "bg-white";
+  const hamburgerColorClass = "bg-foreground";
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-          ? "bg-background/90 backdrop-blur-xl border-b border-border/30 py-4"
-          : "bg-transparent py-6 lg:py-8"
-          }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-background border-b border-border py-4`}
       >
         <nav className="container mx-auto flex items-center justify-between px-6 lg:px-12 relative">
           <Link
             to="/"
             onClick={() => handleLinkClick('/')}
-            className={`${isLightHero ? 'font-sans' : 'text-serif'} text-2xl lg:text-3xl font-bold tracking-[0.08em] transition-colors duration-300 ${textColorClass}`}
+            className={`text-serif text-2xl lg:text-3xl font-bold tracking-[0.08em] transition-colors duration-300 ${textColorClass}`}
           >
             NOVA ASSETS
           </Link>
@@ -79,13 +67,8 @@ const Navbar = ({ isLight = false }: { isLight?: boolean }) => {
                   <Link
                     to={link.href}
                     onClick={() => handleLinkClick(link.href)}
-                    className={`text-sans text-sm tracking-[0.05em] uppercase transition-all duration-300 relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:h-px after:transition-all after:duration-300 ${scrolled || isLightHero
-                      ? "text-muted-foreground hover:text-foreground after:bg-foreground"
-                      : "text-white/80 hover:text-white after:bg-white"
-                      } ${location.pathname === link.href
-                        ? scrolled || isLightHero
-                          ? "text-foreground after:w-full"
-                          : "text-white after:w-full"
+                    className={`text-sans text-sm tracking-[0.05em] uppercase transition-all duration-300 relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:h-px after:transition-all after:duration-300 text-muted-foreground hover:text-foreground after:bg-foreground ${location.pathname === link.href
+                        ? "text-foreground after:w-full"
                         : "after:w-0 hover:after:w-full"
                       }`}
                   >
@@ -98,7 +81,7 @@ const Navbar = ({ isLight = false }: { isLight?: boolean }) => {
             <button
               ref={searchBtnRef}
               onClick={() => setShowSearch(!showSearch)}
-              className={`hidden lg:flex items-center justify-center p-2 rounded-full hover:bg-white/10 transition-colors ${textColorClass}`}
+              className={`hidden lg:flex items-center justify-center p-2 rounded-full hover:bg-muted transition-colors ${textColorClass}`}
               aria-label="Search"
             >
               <Search className="w-5 h-5" />
@@ -145,11 +128,9 @@ const Navbar = ({ isLight = false }: { isLight?: boolean }) => {
             </div>
           </div>
 
-          {/* Search Overlay - Positioned relative to button for Desktop */}
           <AnimatePresence>
             {showSearch && (
               <>
-                {/* Mobile Full Screen / Desktop Transparent Overlay */}
                 <div
                   className="fixed inset-0 z-[55] bg-black/20 backdrop-blur-[2px]"
                   onClick={() => setShowSearch(false)}
@@ -167,7 +148,7 @@ const Navbar = ({ isLight = false }: { isLight?: boolean }) => {
                     <Search className="w-5 h-5 text-muted-foreground" />
                     <Input
                       autoFocus
-                      placeholder="Search..."
+                      placeholder="Search assets..."
                       className="border-none shadow-none text-lg focus-visible:ring-0 p-0 h-auto"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
@@ -182,16 +163,8 @@ const Navbar = ({ isLight = false }: { isLight?: boolean }) => {
                         {(() => {
                           const searchItems = [
                             { label: "Home", href: "/", desc: "Return to homepage" },
-                            { label: "Legal Insights", href: "/insights", desc: "Read our latest legal articles and updates" },
-                            { label: "Legal Tools", href: "/tools", desc: "Access various legal utilities and resources" },
-                            { label: "Court Fee Calculator", href: "/tools/court-fee-calculator", desc: "Calculate court fees for your case" },
-                            { label: "Legal Drafts", href: "/tools/legal-drafts", desc: "Download common legal draft templates" },
-                            { label: "Police Stations", href: "/tools/police-stations", desc: "Find police station information" },
-                            { label: "Careers", href: "/careers", desc: "Explore legal job opportunities and internships" },
-                            { label: "Submit a Job", href: "/careers/submit", desc: "Post a new legal job or internship" },
-                            { label: "Contact Us", href: "/contact", desc: "Get in touch with our legal experts" },
-                            { label: "Citizen Services", href: "/#citizen-services", desc: "Legal services for individuals" },
-                            { label: "Consultation", href: "/contact", desc: "Book an appointment with us" },
+                            { label: "Dashboard", href: "/crypto", desc: "View your crypto portfolio" },
+                            { label: "Contact Us", href: "/#contact", desc: "Get in touch with our experts" },
                           ];
 
                           const filteredItems = searchItems.filter(i =>
@@ -223,7 +196,6 @@ const Navbar = ({ isLight = false }: { isLight?: boolean }) => {
             )}
           </AnimatePresence>
         </nav>
-
       </header>
 
       <AnimatePresence>
@@ -236,12 +208,12 @@ const Navbar = ({ isLight = false }: { isLight?: boolean }) => {
               transition: { duration: 0.3 }
             }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:hidden fixed inset-0 bg-surface-dark z-[100] flex flex-col justify-center items-center"
+            className="lg:hidden fixed inset-0 bg-background z-[100] flex flex-col justify-center items-center"
           >
             <div className="flex flex-col items-center gap-8 relative">
               <button
                 onClick={() => setIsOpen(false)}
-                className="absolute -top-32 right-0 p-4 text-surface-dark-foreground/50 hover:text-surface-dark-foreground transition-colors"
+                className="absolute -top-32 right-0 p-4 text-foreground/50 hover:text-foreground transition-colors"
               >
                 <span className="sr-only">Close menu</span>
                 <svg
@@ -270,26 +242,12 @@ const Navbar = ({ isLight = false }: { isLight?: boolean }) => {
                   <Link
                     to={link.href}
                     onClick={() => handleLinkClick(link.href)}
-                    className="text-serif text-display-sm text-surface-dark-foreground hover:opacity-60 transition-opacity duration-300"
+                    className="text-serif text-display-sm text-foreground hover:opacity-60 transition-opacity duration-300"
                   >
                     {link.label}
                   </Link>
                 </motion.div>
               ))}
-
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-              >
-                <Link
-                  to="/contact"
-                  onClick={() => handleLinkClick('/contact')}
-                  className="text-sans text-[10px] font-bold uppercase border border-surface-charcoal-foreground/30 px-10 py-3.5 rounded-full text-surface-dark-foreground hover:bg-surface-dark-foreground hover:text-surface-dark transition-all duration-500 mt-8 inline-block"
-                >
-                  Schedule Consultation
-                </Link>
-              </motion.div>
             </div>
           </motion.div>
         )}

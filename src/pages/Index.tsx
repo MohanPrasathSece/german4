@@ -24,15 +24,18 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-foreground/5 to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <ScrollReveal>
+            <div className="inline-block px-4 py-1.5 rounded-full bg-red-600/20 border border-red-500/30 text-red-500 font-bold text-sm tracking-wide mb-6 animate-pulse">
+              URGENT: 2,341 of 2,500 Exclusive Memberships Claimed
+            </div>
             <h1 className="text-5xl lg:text-7xl font-bold mb-6 text-foreground leading-tight">
               Invest in the <span className="opacity-70 font-serif italic">Future of Crypto</span>
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-lg">
-              Unlock the power of digital assets with Nova Assets. We provide secure, data-driven crypto investment strategies for the modern investor.
+              Unlock the power of digital assets with Nova Assets. We provide secure, data-driven crypto investment strategies for the modern investor. Spots are strictly limited to maintain high yield percentages.
             </p>
             <div className="flex gap-4">
               <a href="#contact" className="px-8 py-4 bg-foreground text-background hover:opacity-90 rounded-full font-semibold transition-all">
-                Get Started
+                Claim Your Spot Now
               </a>
               <a href="#about" className="px-8 py-4 bg-background border border-border hover:bg-muted rounded-full font-semibold transition-all">
                 Learn More
@@ -41,7 +44,7 @@ const Index = () => {
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
-            {/* New Abstract Hero Right Side */}
+            {/* Abstract Hero Right Side */}
             <div className="relative aspect-square w-full max-w-md mx-auto flex items-center justify-center">
               <div className="absolute inset-0 bg-foreground/5 rounded-full blur-3xl animate-pulse" />
               
@@ -49,8 +52,9 @@ const Index = () => {
                  <div className="absolute w-8 h-8 bg-foreground rounded-full -top-4 left-1/2 -translate-x-1/2 shadow-[0_0_20px_rgba(0,0,0,0.5)] dark:shadow-[0_0_20px_rgba(255,255,255,0.5)]" />
                  <div className="w-48 h-48 border border-border border-dashed rounded-full flex items-center justify-center animate-[spin_15s_linear_infinite_reverse]">
                    <div className="absolute w-6 h-6 bg-foreground/60 rounded-full -bottom-3 left-1/2 -translate-x-1/2" />
-                   <div className="w-32 h-32 bg-foreground/10 rounded-full backdrop-blur-3xl flex items-center justify-center border border-border">
-                     <span className="font-bold text-2xl tracking-widest text-foreground">NOVA</span>
+                   <div className="w-32 h-32 bg-foreground/10 rounded-full backdrop-blur-3xl flex items-center justify-center border border-border relative">
+                     <div className="absolute inset-0 bg-gradient-to-tr from-transparent to-red-500/10 rounded-full" />
+                     <span className="font-bold text-2xl tracking-widest text-foreground relative z-10">NOVA</span>
                    </div>
                  </div>
               </div>
@@ -59,25 +63,25 @@ const Index = () => {
         </div>
       </section>
 
-      <Ticker text="CRYPTO • INVESTMENTS • SECURE • DECENTRALIZED • NOVA ASSETS • " />
+      <Ticker text="CRYPTO • HIGH YIELD • LIMITED SPOTS • INSTITUTIONAL GRADE • SECURE • DECENTRALIZED • NOVA ASSETS • " />
 
       {/* Section 2: About Us */}
       <section id="about" className="py-24 px-6 lg:px-12 bg-muted/30 relative border-y border-border">
         <div className="max-w-7xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold mb-6 text-foreground">Who We Are & What We Do</h2>
+              <h2 className="text-4xl font-bold mb-6 text-foreground">Strictly Limited Access</h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Nova Assets is a premier cryptocurrency investment firm. We bridge the gap between traditional finance and decentralized markets, offering our clients exposure to the most promising digital assets with institutional-grade security.
+                Nova Assets is a premier cryptocurrency investment firm. We cap our membership at 2,500 clients to ensure our algorithmic trading models remain highly effective without diluting returns in the market.
               </p>
             </div>
           </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { title: "Expert Analysis", desc: "Our team of analysts monitors blockchain activity and market sentiment 24/7." },
-              { title: "Strategic Growth", desc: "We deploy proven algorithmic strategies to maximize yields and manage risk." },
-              { title: "Global Reach", desc: "Access the decentralized economy from anywhere in the world, securely." },
+              { title: "Exclusive Analysis", desc: "Our team of analysts monitors blockchain activity and market sentiment 24/7 for a closed group of investors." },
+              { title: "Maximum Yield", desc: "By limiting capital pools, we deploy proven algorithmic strategies to maximize yields and manage risk effectively." },
+              { title: "Priority Processing", desc: "Skip the queue. Members get direct access to dedicated account managers and priority fund processing." },
             ].map((feature, i) => (
               <ScrollReveal key={i} delay={0.1 * i}>
                 <div className="p-8 rounded-3xl bg-background border border-border h-full transition-transform hover:-translate-y-2">
@@ -106,15 +110,18 @@ const Index = () => {
           </ScrollReveal>
           
           <ScrollReveal delay={0.2}>
-            <h2 className="text-4xl font-bold mb-6 text-foreground">Security & AI Insights</h2>
+             <div className="inline-block px-3 py-1 rounded bg-red-600/20 text-red-500 font-bold text-xs uppercase tracking-wider mb-4">
+              Final Allocations Remaining
+            </div>
+            <h2 className="text-4xl font-bold mb-6 text-foreground">Security & Unmatched Returns</h2>
             <p className="text-lg text-muted-foreground mb-8">
-              We don't just guess where the market is going; we rely on billions of data points processed by advanced AI models. Coupled with military-grade security infrastructure, your funds have never been safer.
+              We don't just guess where the market is going; we rely on billions of data points processed by advanced AI models. Our closed-loop system means your returns aren't shared with the masses.
             </p>
             <ul className="space-y-4">
               {[
                 "Offline Cold Storage for 95% of assets",
                 "Real-time AI Sentiment Analysis",
-                "Automated Portfolio Rebalancing",
+                "Private Portfolio Rebalancing",
                 "Strict Regulatory Compliance"
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-3 text-foreground">
@@ -134,12 +141,15 @@ const Index = () => {
         <div className="max-w-3xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4 text-foreground">Start Your Journey</h2>
+              <h2 className="text-4xl font-bold mb-4 text-foreground">Secure Your Allocation</h2>
               <p className="text-lg text-muted-foreground">
-                Ready to invest? Leave your details below and one of our crypto advisors will reach out to you.
+                <span className="font-bold text-foreground">Only 159 spots left.</span> Submit your details below immediately to ensure our crypto advisors can process your onboarding.
               </p>
             </div>
-            <div className="bg-background p-8 lg:p-12 rounded-3xl shadow-xl border border-border">
+            <div className="bg-background p-8 lg:p-12 rounded-3xl shadow-xl border border-border relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-4 bg-red-600 text-white font-bold transform translate-x-8 translate-y-4 rotate-45 text-xs shadow-lg">
+                 HIGH DEMAND
+              </div>
               <ContactForm />
             </div>
           </ScrollReveal>
