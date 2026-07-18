@@ -144,10 +144,10 @@ export const AuthDialog = ({
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="p-0 max-w-[900px] overflow-hidden rounded-[28px] border-0 shadow-[0_25px_80px_rgba(0,0,0,0.4)] bg-transparent">
-        <div className="flex h-full min-h-[580px]">
+        <div className="flex h-full min-h-[580px] rounded-[28px] overflow-hidden">
 
           {/* Left Panel - Branding */}
-          <div className="hidden lg:flex flex-col justify-between w-[42%] bg-[#0a0a0a] p-10 relative overflow-hidden">
+          <div className="hidden lg:flex flex-col justify-between w-[42%] bg-[#0a0a0a] p-10 relative overflow-hidden rounded-l-[28px]">
             {/* Subtle grid */}
             <div
               className="absolute inset-0 opacity-[0.04]"
@@ -201,7 +201,7 @@ export const AuthDialog = ({
           </div>
 
           {/* Right Panel - Form */}
-          <div className="flex-1 bg-white flex flex-col justify-center px-10 py-12">
+          <div className="flex-1 bg-white flex flex-col justify-center px-10 py-12 rounded-r-[28px]">
             {/* Mobile logo */}
             <div className="lg:hidden mb-8">
               <div className="font-bold text-xl tracking-widest text-gray-900">NOVA ASSETS</div>
