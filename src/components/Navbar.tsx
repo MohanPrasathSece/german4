@@ -52,7 +52,7 @@ const Navbar = ({ isLight = false }: { isLight?: boolean }) => {
 
   const textColorClass = scrolled || isLightHero ? "text-foreground" : "text-white";
   const borderColorClass = scrolled || isLightHero ? "border-foreground" : "border-white";
-  const hoverBgClass = scrolled || isLightHero ? "hover:bg-foreground hover:text-background" : "hover:bg-white hover:text-surface-dark";
+  const hoverBgClass = 'hover:bg-foreground hover:text-background';
   const hamburgerColorClass = scrolled || isLightHero || isOpen ? "bg-foreground" : "bg-white";
 
   return (

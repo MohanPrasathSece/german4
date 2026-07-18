@@ -67,7 +67,7 @@ export const LoginDialog = ({ children }: { children: React.ReactNode }) => {
               required
             />
           </div>
-          <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white" disabled={isLoading}>
+          <Button type="submit" className="w-full bg-foreground hover:opacity-90 text-background" disabled={isLoading}>
             {isLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : "Sign In"}
           </Button>
         </form>
