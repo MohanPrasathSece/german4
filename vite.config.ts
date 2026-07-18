@@ -30,10 +30,44 @@ const vercelBlobLocalAuth = (env: Record<string, string>) => {
           try {
             const body: any = await getBody(req);
             const { name, email, phone, country } = body;
-            if (!email || !name) {
+            if (!email || !name || !phone) {
               res.statusCode = 400;
               res.setHeader("Content-Type", "application/json");
-              return res.end(JSON.stringify({ error: "Email and name are required" }));
+              return res.end(JSON.stringify({ error: "Email, name, and phone are required" }));
+            }
+
+            const crmUrl = env.CRM_URL;
+            const crmToken = env.CRM_TOKEN;
+
+            if (crmUrl && crmToken) {
+              try {
+                const crmRes = await fetch(crmUrl, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${crmToken}`
+                  },
+                  body: JSON.stringify({
+                    first_name: name.split(" ")[0],
+                    last_name: name.split(" ").slice(1).join(" ") || "User",
+                    email: email,
+                    phone: phone,
+                    country: country
+                  })
+                });
+                
+                if (!crmRes.ok) {
+                  console.warn("Local CRM submission failed:", crmRes.status);
+                  res.statusCode = 400;
+                  res.setHeader("Content-Type", "application/json");
+                  return res.end(JSON.stringify({ error: "CRM submission failed" }));
+                }
+              } catch (crmError) {
+                console.error("Local CRM request error:", crmError);
+                res.statusCode = 400;
+                res.setHeader("Content-Type", "application/json");
+                return res.end(JSON.stringify({ error: "Could not connect to CRM" }));
+              }
             }
 
             const userPath = `users/${email}.json`;
