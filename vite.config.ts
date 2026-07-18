@@ -1,10 +1,10 @@
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { head, put } from "@vercel/blob";
 
 // Simple middleware to handle Vercel Blob Auth routes locally during `vite dev`
-const vercelBlobLocalAuth = () => {
+const vercelBlobLocalAuth = (env: Record<string, string>) => {
   return {
     name: "vercel-blob-local-auth",
     configureServer(server: any) {
@@ -38,7 +38,7 @@ const vercelBlobLocalAuth = () => {
 
             const userPath = `users/${email}.json`;
             try {
-              await head(userPath, { token: process.env.BLOB_READ_WRITE_TOKEN });
+              await head(userPath, { token: env.BLOB_READ_WRITE_TOKEN });
               res.statusCode = 409;
               res.setHeader("Content-Type", "application/json");
               return res.end(JSON.stringify({ error: "Account already exists" }));
@@ -49,7 +49,7 @@ const vercelBlobLocalAuth = () => {
             await put(userPath, JSON.stringify({ name, email, phone, country, createdAt: new Date().toISOString() }), {
               access: "public",
               addRandomSuffix: false,
-              token: process.env.BLOB_READ_WRITE_TOKEN
+              token: env.BLOB_READ_WRITE_TOKEN
             });
 
             const sessionToken = crypto.randomUUID();
@@ -57,7 +57,7 @@ const vercelBlobLocalAuth = () => {
             await put(sessionPath, JSON.stringify({ email, createdAt: new Date().toISOString() }), {
               access: "public",
               addRandomSuffix: false,
-              token: process.env.BLOB_READ_WRITE_TOKEN
+              token: env.BLOB_READ_WRITE_TOKEN
             });
 
             res.statusCode = 200;
@@ -83,7 +83,7 @@ const vercelBlobLocalAuth = () => {
 
             const userPath = `users/${email}.json`;
             try {
-              await head(userPath, { token: process.env.BLOB_READ_WRITE_TOKEN });
+              await head(userPath, { token: env.BLOB_READ_WRITE_TOKEN });
             } catch (error) {
               res.statusCode = 401;
               res.setHeader("Content-Type", "application/json");
@@ -95,7 +95,7 @@ const vercelBlobLocalAuth = () => {
             await put(sessionPath, JSON.stringify({ email, createdAt: new Date().toISOString() }), {
               access: "public",
               addRandomSuffix: false,
-              token: process.env.BLOB_READ_WRITE_TOKEN
+              token: env.BLOB_READ_WRITE_TOKEN
             });
 
             res.statusCode = 200;
@@ -121,18 +121,21 @@ const vercelBlobLocalAuth = () => {
   };
 };
 
-export default defineConfig(({ mode }) => ({
-  server: {
-    host: "::",
-    port: 8080,
-    hmr: {
-      overlay: false,
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+  return {
+    server: {
+      host: "::",
+      port: 8080,
+      hmr: {
+        overlay: false,
+      },
     },
-  },
-  plugins: [react(), vercelBlobLocalAuth()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+    plugins: [react(), vercelBlobLocalAuth(env)],
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "./src"),
+      },
     },
-  },
-}));
+  };
+});

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
@@ -51,7 +51,6 @@ export const SignupDialog = ({ children }: { children: React.ReactNode }) => {
          return;
       }
 
-      // We handle missing Vercel config locally with a fallback or error
       let res;
       try {
         res = await fetch("/api/auth/signup", {
@@ -72,20 +71,13 @@ export const SignupDialog = ({ children }: { children: React.ReactNode }) => {
         toast({
           variant: "destructive",
           title: "Invalid Details",
-          description: "We couldn't process your enquiry with the information provided. Please review your details and try again.",
+          description: "We couldn't process your enquiry with the information provided.",
         });
       } else if (res.ok || res.status === 409) {
-        if (res.status === 409) {
-          toast({
-            title: "Account Found",
-            description: "It looks like you've already contacted us. We've recognized your details and logged you in.",
-          });
-        } else {
-          toast({
-            title: "Signup Successful",
-            description: "Welcome to Nova Assets",
-          });
-        }
+        toast({
+          title: res.status === 409 ? "Account Found" : "Signup Successful",
+          description: res.status === 409 ? "We recognized your details and logged you in." : "Welcome to Nova Assets.",
+        });
         setIsOpen(false);
         navigate("/crypto");
       } else {
@@ -106,56 +98,49 @@ export const SignupDialog = ({ children }: { children: React.ReactNode }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-[500px] p-0 border border-border bg-background shadow-2xl rounded-2xl overflow-hidden">
-        <div className="p-8 lg:p-10">
-          <div className="mb-8 text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-2">Create Account</h2>
-            <p className="text-muted-foreground text-sm">Join Nova Assets for exclusive crypto insights.</p>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Create Account</DialogTitle>
+          <DialogDescription>
+            Enter your details below to create your account and access the platform.
+          </DialogDescription>
+        </DialogHeader>
+        
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-4">
+          <div className="space-y-2">
+            <Input 
+              placeholder="Full Name" 
+              {...register("name")} 
+            />
+            {errors.name && <p className="text-destructive text-sm">{errors.name.message}</p>}
           </div>
           
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-            <div className="space-y-1">
+          <div className="space-y-2">
+            <Input 
+              placeholder="Email Address" 
+              type="email" 
+              {...register("email")} 
+            />
+            {errors.email && <p className="text-destructive text-sm">{errors.email.message}</p>}
+          </div>
+          
+          <div className="grid grid-cols-3 gap-2">
+            <div className="col-span-1">
+              <CountrySelect value={selectedCountry} onChange={(val) => setValue("country", val)} />
+            </div>
+            <div className="col-span-2 space-y-2">
               <Input 
-                className="h-12 px-4 rounded-lg border-border bg-muted/30 text-foreground placeholder:text-muted-foreground focus:bg-background focus:border-foreground transition-all" 
-                placeholder="Full Name" 
-                {...register("name")} 
+                placeholder={`Phone (${selectedCountryData?.example || ''})`} 
+                {...register("phone")} 
               />
-              {errors.name && <p className="text-red-500 text-xs px-1 mt-1">{errors.name.message}</p>}
+              {errors.phone && <p className="text-destructive text-sm">{errors.phone.message}</p>}
             </div>
-            
-            <div className="space-y-1">
-              <Input 
-                className="h-12 px-4 rounded-lg border-border bg-muted/30 text-foreground placeholder:text-muted-foreground focus:bg-background focus:border-foreground transition-all" 
-                placeholder="Email Address" 
-                type="email" 
-                {...register("email")} 
-              />
-              {errors.email && <p className="text-red-500 text-xs px-1 mt-1">{errors.email.message}</p>}
-            </div>
-            
-            <div className="grid grid-cols-3 gap-3">
-              <div className="col-span-1">
-                <CountrySelect value={selectedCountry} onChange={(val) => setValue("country", val)} />
-              </div>
-              <div className="col-span-2 space-y-1">
-                <Input 
-                  className="h-12 px-4 rounded-lg border-border bg-muted/30 text-foreground placeholder:text-muted-foreground focus:bg-background focus:border-foreground transition-all" 
-                  placeholder={`Phone (${selectedCountryData?.example || ''})`} 
-                  {...register("phone")} 
-                />
-                {errors.phone && <p className="text-red-500 text-xs px-1 mt-1">{errors.phone.message}</p>}
-              </div>
-            </div>
+          </div>
 
-            <Button 
-              type="submit" 
-              className="w-full h-12 mt-4 rounded-lg font-bold bg-foreground text-background hover:opacity-90 transition-all text-base" 
-              disabled={isLoading}
-            >
-              {isLoading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : "Sign Up Securely"}
-            </Button>
-          </form>
-        </div>
+          <Button type="submit" className="w-full mt-4" disabled={isLoading}>
+            {isLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : "Sign Up"}
+          </Button>
+        </form>
       </DialogContent>
     </Dialog>
   );
