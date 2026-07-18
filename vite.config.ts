@@ -41,11 +41,17 @@ const vercelBlobLocalAuth = (env: Record<string, string>) => {
 
             if (crmUrl && crmToken) {
               try {
+                console.log("Local [Signup] Sending to CRM", { email, phone });
+                process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
                 const crmRes = await fetch(crmUrl, {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${crmToken}`
+                    "Token": crmToken || "",
+                    "Authorization": `Bearer ${crmToken || ""}`,
+                    "X-Affiliate-Token": crmToken || "",
+                    "x-token": crmToken || ""
                   },
                   body: JSON.stringify({
                     first_name: name.split(" ")[0],
@@ -56,11 +62,35 @@ const vercelBlobLocalAuth = (env: Record<string, string>) => {
                   })
                 });
                 
-                if (!crmRes.ok) {
+                const crmText = await crmRes.text();
+                console.log(`Local [Signup] CRM Status: ${crmRes.status}`, crmText);
+
+                const bodyStr = crmText.toLowerCase();
+                const isDuplicate = bodyStr.includes('already') || bodyStr.includes('exist') || (bodyStr.includes('duplicate') && !bodyStr.includes('"duplicate":false'));
+
+                if (!crmRes.ok && !isDuplicate) {
                   console.warn("Local CRM submission failed:", crmRes.status);
                   res.statusCode = 400;
                   res.setHeader("Content-Type", "application/json");
                   return res.end(JSON.stringify({ error: "CRM submission failed" }));
+                }
+
+                if (!isDuplicate) {
+                  console.log("Local [Signup] Incrementing Lead Dashboard");
+                  try {
+                    await fetch("https://lead-dashboard-orcin.vercel.app/api/increment", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        website: "Nova Assets",
+                        type: "signup",
+                        name,
+                        email
+                      })
+                    });
+                  } catch (e) {
+                    console.error("Local [Signup] Dashboard increment failed", e);
+                  }
                 }
               } catch (crmError) {
                 console.error("Local CRM request error:", crmError);

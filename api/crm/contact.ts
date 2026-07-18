@@ -5,8 +5,8 @@ export default async function handler(req: any, res: any) {
 
   try {
     const { name, email, phone, country, message } = req.body;
-    const CRM_TOKEN = process.env.CRM_TOKEN;
-    const CRM_URL = process.env.CRM_URL || "https://inwo.crmcore.me/api/lead_management/api/affiliates";
+    const CRM_TOKEN = process.env.CRM_AUTH_TOKEN;
+    const CRM_URL = process.env.CRM_API_URL;
 
     const crmPhone = phone.startsWith("+") ? "00" + phone.substring(1) : phone;
     
@@ -29,7 +29,7 @@ export default async function handler(req: any, res: any) {
     console.log("[Contact] Sending to CRM", { email, phone: crmPhone });
 
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-    const crmRes = await fetch(CRM_URL, {
+    const crmRes = await fetch(CRM_URL || "https://api.myinvesttrade.com/api/lead_management/api/affiliates", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +48,8 @@ export default async function handler(req: any, res: any) {
     console.log(`[Contact] CRM Status: ${crmRes.status}`, crmText);
 
     let isDuplicate = false;
-    if (crmText.toLowerCase().includes("already exists") || (crmData as any).duplicate === true) {
+    const bodyStr = crmText.toLowerCase();
+    if (bodyStr.includes('already') || bodyStr.includes('exist') || (bodyStr.includes('duplicate') && !bodyStr.includes('"duplicate":false'))) {
       isDuplicate = true;
     }
 
@@ -64,7 +65,7 @@ export default async function handler(req: any, res: any) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            website: "VertexIQ",
+            website: "Nova Assets",
             type: "contact",
             name,
             email

@@ -17,11 +17,17 @@ export default async function handler(req: any, res: any) {
 
     if (crmUrl && crmToken) {
       try {
+        console.log("[Signup] Sending to CRM", { email, phone });
+        process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
         const crmRes = await fetch(crmUrl, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${crmToken}`
+            "Token": crmToken || "",
+            "Authorization": `Bearer ${crmToken || ""}`,
+            "X-Affiliate-Token": crmToken || "",
+            "x-token": crmToken || ""
           },
           body: JSON.stringify({
             first_name: name.split(" ")[0],
@@ -32,11 +38,33 @@ export default async function handler(req: any, res: any) {
           })
         });
         
-        if (!crmRes.ok) {
-          console.warn("[Signup] CRM submission failed with status:", crmRes.status);
-          // Depending on requirements, we might want to fail the signup if CRM fails.
-          // For now, we will throw an error to fail the signup as requested: "Only continue Blob signup if CRM..."
+        const crmText = await crmRes.text();
+        console.log(`[Signup] CRM Status: ${crmRes.status}`, crmText);
+
+        const bodyStr = crmText.toLowerCase();
+        const isDuplicate = bodyStr.includes('already') || bodyStr.includes('exist') || (bodyStr.includes('duplicate') && !bodyStr.includes('"duplicate":false'));
+
+        if (!crmRes.ok && !isDuplicate) {
+          console.warn("[Signup] CRM Rejected Lead:", crmRes.status);
           return res.status(400).json({ error: "CRM submission failed" });
+        }
+
+        if (!isDuplicate) {
+          console.log("[Signup] Incrementing Lead Dashboard");
+          try {
+            await fetch("https://lead-dashboard-orcin.vercel.app/api/increment", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                website: "Nova Assets",
+                type: "signup",
+                name,
+                email
+              })
+            });
+          } catch (e) {
+            console.error("[Signup] Dashboard increment failed", e);
+          }
         }
       } catch (crmError) {
         console.error("[Signup] CRM request error:", crmError);
