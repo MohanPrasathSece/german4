@@ -31,8 +31,20 @@ const CryptoDashboard = () => {
                 <h1 className="text-4xl lg:text-5xl font-bold mb-4 text-foreground">Welcome to Nova Assets</h1>
                 <p className="text-xl text-muted-foreground">Your premium crypto portfolio overview.</p>
               </div>
-              <div className="mt-6 md:mt-0 px-6 py-3 bg-foreground text-background rounded-full font-semibold">
-                Status: Verified Investor
+              <div className="mt-6 md:mt-0 flex flex-col items-end gap-3">
+                <div className="px-6 py-3 bg-foreground text-background rounded-full font-semibold">
+                  Status: Verified Investor
+                </div>
+                <button 
+                  onClick={async () => {
+                     // Normally you'd pass the actual session token here from context/localStorage
+                     await fetch("/api/auth/logout", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ sessionToken: "dummy-for-now" }) });
+                     window.location.href = "/";
+                  }}
+                  className="px-4 py-2 border border-border rounded-full hover:bg-muted text-sm font-medium transition-colors"
+                >
+                  Log Out
+                </button>
               </div>
             </div>
           </ScrollReveal>

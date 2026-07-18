@@ -23,7 +23,7 @@ export default async function handler(req: any, res: any) {
     const sessionToken = crypto.randomUUID();
     const sessionPath = `sessions/${sessionToken}.json`;
     await put(sessionPath, JSON.stringify({ email, createdAt: new Date().toISOString() }), {
-      access: "private",
+      access: "public",
       addRandomSuffix: false
     });
 
