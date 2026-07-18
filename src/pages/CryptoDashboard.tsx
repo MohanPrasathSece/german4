@@ -6,14 +6,19 @@ import ScrollReveal from "@/components/ScrollReveal";
 import ContactForm from "@/components/ContactForm";
 
 const CryptoDashboard = () => {
-  const [session, setSession] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    // Note: Vercel Blob auth verification would happen via API in a real app,
-    // but for now, we assume the user is authenticated since they reached here.
-    setSession("Active");
+    const isAuth = localStorage.getItem("nova_auth");
+    if (!isAuth) {
+      window.location.href = "/";
+    } else {
+      setMounted(true);
+    }
   }, []);
+
+  if (!mounted) return null;
 
   return (
     <main className="min-h-screen bg-background text-foreground overflow-hidden">

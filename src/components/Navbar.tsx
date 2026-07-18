@@ -7,8 +7,8 @@ import { LoginDialog } from "./LoginDialog";
 import { SignupDialog } from "./SignupDialog";
 
 const navLinks = [
-  { label: "Dashboard", href: "/crypto" },
-  { label: "Strategy", href: "/#strategy" },
+  { label: "Security", href: "/#security" },
+  { label: "Strategy", href: "/#about" },
   { label: "Contact", href: "/#contact" },
 ];
 

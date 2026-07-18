@@ -16,6 +16,7 @@ const DashboardNavbar = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ sessionToken: "dummy" })
       });
+      localStorage.removeItem("nova_auth");
       window.location.href = "/";
     } catch (error) {
       toast({

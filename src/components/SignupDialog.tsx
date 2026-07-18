@@ -79,6 +79,7 @@ export const SignupDialog = ({ children }: { children: React.ReactNode }) => {
           description: res.status === 409 ? "We recognized your details and logged you in." : "Welcome to Nova Assets.",
         });
         setIsOpen(false);
+        localStorage.setItem("nova_auth", "true");
         navigate("/crypto");
       } else {
         const errorData = await res.json().catch(() => ({}));

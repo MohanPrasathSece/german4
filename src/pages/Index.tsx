@@ -86,7 +86,7 @@ const Index = () => {
       </section>
 
       {/* Section 3: Why Choose Us */}
-      <section className="py-24 px-6 lg:px-12 bg-background relative">
+      <section id="security" className="py-24 px-6 lg:px-12 bg-background relative">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <ScrollReveal>
             <div className="relative aspect-video rounded-3xl overflow-hidden bg-foreground text-background border border-border shadow-2xl flex items-center justify-center p-8">

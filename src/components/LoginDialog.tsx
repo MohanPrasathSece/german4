@@ -36,6 +36,7 @@ export const LoginDialog = ({ children }: { children: React.ReactNode }) => {
           description: "Welcome back to Nova Assets",
         });
         setIsOpen(false);
+        localStorage.setItem("nova_auth", "true");
         navigate("/crypto");
       } else {
         const errorData = await res.json().catch(() => ({}));
