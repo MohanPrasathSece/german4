@@ -11,8 +11,13 @@ export default async function handler(req: any, res: any) {
       return res.status(400).json({ error: "Session token is required" });
     }
 
-    const sessionPath = `sessions/${sessionToken}.json`;
-    await del(sessionPath);
+    const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
+    if (blobToken) {
+      const sessionPath = `sessions/${sessionToken}.json`;
+      await del(sessionPath, { token: blobToken });
+    } else {
+      console.warn("[Logout] BLOB_READ_WRITE_TOKEN not set");
+    }
 
     return res.status(200).json({ success: true, message: "Logged out" });
   } catch (error) {

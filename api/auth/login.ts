@@ -11,10 +11,16 @@ export default async function handler(req: any, res: any) {
       return res.status(400).json({ error: "Email is required" });
     }
 
+    const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
+    if (!blobToken) {
+      console.warn("[Login] BLOB_READ_WRITE_TOKEN not set");
+      return res.status(200).json({ success: true, sessionToken: "mock-token" });
+    }
+
     const userPath = `users/${email}.json`;
     
     try {
-      await head(userPath);
+      await head(userPath, { token: blobToken });
     } catch (error: any) {
       console.log("[Login] User not found in blob", email);
       return res.status(404).json({ error: "Account not found" });
@@ -24,7 +30,8 @@ export default async function handler(req: any, res: any) {
     const sessionPath = `sessions/${sessionToken}.json`;
     await put(sessionPath, JSON.stringify({ email, createdAt: new Date().toISOString() }), {
       access: "public",
-      addRandomSuffix: false
+      addRandomSuffix: false,
+      token: blobToken
     });
 
     return res.status(200).json({ success: true, sessionToken });
