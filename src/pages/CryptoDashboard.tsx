@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import SEO from "@/components/SEO";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
+import ContactForm from "@/components/ContactForm";
 
 const CryptoDashboard = () => {
   const [session, setSession] = useState<string | null>(null);
@@ -124,6 +125,23 @@ const CryptoDashboard = () => {
                </div>
                <h3 className="text-3xl font-bold mb-4">Your Wealth is Compounding</h3>
                <p className="opacity-70 text-lg">Check your email for daily performance reports and trade breakdowns.</p>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Contact Support */}
+      <section id="contact" className="py-24 px-6 lg:px-12 bg-muted/50 border-t border-border">
+        <div className="max-w-3xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4 text-foreground">Need Assistance?</h2>
+              <p className="text-lg text-muted-foreground">
+                Get in touch with your dedicated crypto advisor or submit a general inquiry below.
+              </p>
+            </div>
+            <div className="bg-background p-8 lg:p-12 rounded-3xl shadow-xl border border-border relative overflow-hidden">
+              <ContactForm />
             </div>
           </ScrollReveal>
         </div>

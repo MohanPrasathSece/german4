@@ -55,7 +55,7 @@ export const LoginDialog = ({ children }: { children: React.ReactNode }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] rounded-3xl p-6">
         <DialogHeader>
           <DialogTitle>Sign In</DialogTitle>
           <DialogDescription>
