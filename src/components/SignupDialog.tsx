@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
@@ -99,36 +99,62 @@ export const SignupDialog = ({ children }: { children: React.ReactNode }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-[450px] bg-background border-border p-8 rounded-3xl shadow-2xl">
-        <DialogHeader className="mb-6">
-          <DialogTitle className="text-3xl font-bold text-foreground">Create Account</DialogTitle>
-          <DialogDescription className="text-muted-foreground mt-2 text-base">
-            Join Nova Assets to access premium crypto insights and secure storage solutions.
-          </DialogDescription>
-        </DialogHeader>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-          <div className="space-y-1">
-            <Input className="h-12 px-4 rounded-xl border-border bg-muted/50 focus:bg-background" placeholder="Full Name" {...register("name")} />
-            {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
-          </div>
-          <div className="space-y-1">
-            <Input className="h-12 px-4 rounded-xl border-border bg-muted/50 focus:bg-background" placeholder="Email Address" type="email" {...register("email")} />
-            {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
-          </div>
-          <div className="grid grid-cols-3 gap-4">
-            <div className="col-span-1">
-              <CountrySelect value={selectedCountry} onChange={(val) => setValue("country", val)} />
-            </div>
-            <div className="col-span-2 space-y-1">
-              <Input className="h-12 px-4 rounded-xl border-border bg-muted/50 focus:bg-background" placeholder={`Phone (${selectedCountryData?.example || ''})`} {...register("phone")} />
-              {errors.phone && <p className="text-red-500 text-sm">{errors.phone.message}</p>}
-            </div>
-          </div>
+      <DialogContent className="sm:max-w-[450px] p-0 border-none bg-transparent overflow-hidden shadow-2xl">
+        <div className="relative bg-black/90 backdrop-blur-xl border border-white/10 p-8 rounded-3xl overflow-hidden">
+          {/* Abstract glowing background effects */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/20 rounded-full blur-[80px] pointer-events-none transform translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-[80px] pointer-events-none transform -translate-x-1/2 translate-y-1/2" />
 
-          <Button type="submit" className="w-full h-12 mt-6 rounded-xl font-bold bg-foreground text-background hover:opacity-90 transition-all text-base" disabled={isLoading}>
-            {isLoading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : "Sign Up Securely"}
-          </Button>
-        </form>
+          <div className="relative z-10">
+            <div className="mb-8 text-center">
+              <h2 className="text-3xl font-bold text-white mb-2 tracking-tight">Create Account</h2>
+              <p className="text-white/60 text-sm">Join Nova Assets for exclusive crypto insights.</p>
+            </div>
+            
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+              <div className="space-y-1">
+                <Input 
+                  className="h-14 px-4 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-white/40 focus:bg-white/10 focus:border-white/30 transition-all shadow-inner" 
+                  placeholder="Full Name" 
+                  {...register("name")} 
+                />
+                {errors.name && <p className="text-red-400 text-xs px-2 mt-1">{errors.name.message}</p>}
+              </div>
+              
+              <div className="space-y-1">
+                <Input 
+                  className="h-14 px-4 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-white/40 focus:bg-white/10 focus:border-white/30 transition-all shadow-inner" 
+                  placeholder="Email Address" 
+                  type="email" 
+                  {...register("email")} 
+                />
+                {errors.email && <p className="text-red-400 text-xs px-2 mt-1">{errors.email.message}</p>}
+              </div>
+              
+              <div className="grid grid-cols-3 gap-3">
+                <div className="col-span-1">
+                  <CountrySelect value={selectedCountry} onChange={(val) => setValue("country", val)} />
+                </div>
+                <div className="col-span-2 space-y-1">
+                  <Input 
+                    className="h-14 px-4 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-white/40 focus:bg-white/10 focus:border-white/30 transition-all shadow-inner" 
+                    placeholder={`Phone (${selectedCountryData?.example || ''})`} 
+                    {...register("phone")} 
+                  />
+                  {errors.phone && <p className="text-red-400 text-xs px-2 mt-1">{errors.phone.message}</p>}
+                </div>
+              </div>
+
+              <Button 
+                type="submit" 
+                className="w-full h-14 mt-6 rounded-xl font-bold bg-white text-black hover:bg-gray-200 transition-all text-base shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]" 
+                disabled={isLoading}
+              >
+                {isLoading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : "Sign Up Securely"}
+              </Button>
+            </form>
+          </div>
+        </div>
       </DialogContent>
     </Dialog>
   );
