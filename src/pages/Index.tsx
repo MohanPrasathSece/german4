@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
 import ContactForm from "@/components/ContactForm";
 import Ticker from "@/components/Ticker";
+import TradingCandles from "@/components/TradingCandles";
 
 const Index = () => {
   useEffect(() => {
@@ -44,20 +45,10 @@ const Index = () => {
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
-            {/* Abstract Hero Right Side */}
-            <div className="relative aspect-square w-full max-w-md mx-auto flex items-center justify-center">
-              <div className="absolute inset-0 bg-foreground/5 rounded-full blur-3xl animate-pulse" />
-              
-              <div className="relative w-64 h-64 border border-border rounded-full flex items-center justify-center animate-[spin_20s_linear_infinite]">
-                 <div className="absolute w-8 h-8 bg-foreground rounded-full -top-4 left-1/2 -translate-x-1/2 shadow-[0_0_20px_rgba(0,0,0,0.5)] dark:shadow-[0_0_20px_rgba(255,255,255,0.5)]" />
-                 <div className="w-48 h-48 border border-border border-dashed rounded-full flex items-center justify-center animate-[spin_15s_linear_infinite_reverse]">
-                   <div className="absolute w-6 h-6 bg-foreground/60 rounded-full -bottom-3 left-1/2 -translate-x-1/2" />
-                   <div className="w-32 h-32 bg-foreground/10 rounded-full backdrop-blur-3xl flex items-center justify-center border border-border relative">
-                     <div className="absolute inset-0 bg-gradient-to-tr from-transparent to-red-500/10 rounded-full" />
-                     <span className="font-bold text-2xl tracking-widest text-foreground relative z-10">NOVA</span>
-                   </div>
-                 </div>
-              </div>
+            {/* Real-time Trading Chart Visualizer */}
+            <div className="relative w-full max-w-lg mx-auto flex items-center justify-center pt-8 lg:pt-0">
+               <div className="absolute inset-0 bg-red-600/5 rounded-3xl blur-3xl animate-pulse" />
+               <TradingCandles />
             </div>
           </ScrollReveal>
         </div>
