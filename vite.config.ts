@@ -1,8 +1,126 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
+import { head, put } from "@vercel/blob";
 
-// https://vitejs.dev/config/
+// Simple middleware to handle Vercel Blob Auth routes locally during `vite dev`
+const vercelBlobLocalAuth = () => {
+  return {
+    name: "vercel-blob-local-auth",
+    configureServer(server: any) {
+      server.middlewares.use(async (req: any, res: any, next: any) => {
+        // Parse JSON body helper
+        const getBody = (request: any) => {
+          return new Promise((resolve) => {
+            let body = '';
+            request.on('data', (chunk: any) => {
+              body += chunk.toString();
+            });
+            request.on('end', () => {
+              try {
+                resolve(JSON.parse(body));
+              } catch (e) {
+                resolve({});
+              }
+            });
+          });
+        };
+
+        if (req.url === "/api/auth/signup" && req.method === "POST") {
+          try {
+            const body: any = await getBody(req);
+            const { name, email, phone, country } = body;
+            if (!email || !name) {
+              res.statusCode = 400;
+              res.setHeader("Content-Type", "application/json");
+              return res.end(JSON.stringify({ error: "Email and name are required" }));
+            }
+
+            const userPath = `users/${email}.json`;
+            try {
+              await head(userPath, { token: process.env.BLOB_READ_WRITE_TOKEN });
+              res.statusCode = 409;
+              res.setHeader("Content-Type", "application/json");
+              return res.end(JSON.stringify({ error: "Account already exists" }));
+            } catch (error) {
+               // User doesn't exist
+            }
+
+            await put(userPath, JSON.stringify({ name, email, phone, country, createdAt: new Date().toISOString() }), {
+              access: "public",
+              addRandomSuffix: false,
+              token: process.env.BLOB_READ_WRITE_TOKEN
+            });
+
+            const sessionToken = crypto.randomUUID();
+            const sessionPath = `sessions/${sessionToken}.json`;
+            await put(sessionPath, JSON.stringify({ email, createdAt: new Date().toISOString() }), {
+              access: "public",
+              addRandomSuffix: false,
+              token: process.env.BLOB_READ_WRITE_TOKEN
+            });
+
+            res.statusCode = 200;
+            res.setHeader("Content-Type", "application/json");
+            return res.end(JSON.stringify({ success: true, sessionToken, message: "Account created" }));
+          } catch (error: any) {
+            console.error("Local Mock Signup Error:", error);
+            res.statusCode = 500;
+            res.setHeader("Content-Type", "application/json");
+            return res.end(JSON.stringify({ error: error.message || "Unexpected failure" }));
+          }
+        } 
+        
+        else if (req.url === "/api/auth/login" && req.method === "POST") {
+          try {
+            const body: any = await getBody(req);
+            const { email } = body;
+            if (!email) {
+              res.statusCode = 400;
+              res.setHeader("Content-Type", "application/json");
+              return res.end(JSON.stringify({ error: "Email is required" }));
+            }
+
+            const userPath = `users/${email}.json`;
+            try {
+              await head(userPath, { token: process.env.BLOB_READ_WRITE_TOKEN });
+            } catch (error) {
+              res.statusCode = 401;
+              res.setHeader("Content-Type", "application/json");
+              return res.end(JSON.stringify({ error: "Account not found" }));
+            }
+
+            const sessionToken = crypto.randomUUID();
+            const sessionPath = `sessions/${sessionToken}.json`;
+            await put(sessionPath, JSON.stringify({ email, createdAt: new Date().toISOString() }), {
+              access: "public",
+              addRandomSuffix: false,
+              token: process.env.BLOB_READ_WRITE_TOKEN
+            });
+
+            res.statusCode = 200;
+            res.setHeader("Content-Type", "application/json");
+            return res.end(JSON.stringify({ success: true, sessionToken, message: "Logged in" }));
+          } catch (error: any) {
+            console.error("Local Mock Login Error:", error);
+            res.statusCode = 500;
+            res.setHeader("Content-Type", "application/json");
+            return res.end(JSON.stringify({ error: error.message || "Unexpected failure" }));
+          }
+        }
+        
+        else if (req.url === "/api/auth/logout" && req.method === "POST") {
+          res.statusCode = 200;
+          res.setHeader("Content-Type", "application/json");
+          return res.end(JSON.stringify({ success: true, message: "Logged out" }));
+        }
+
+        next();
+      });
+    }
+  };
+};
+
 export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
@@ -11,7 +129,7 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
-  plugins: [react()],
+  plugins: [react(), vercelBlobLocalAuth()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

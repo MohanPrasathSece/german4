@@ -51,16 +51,22 @@ export const SignupDialog = ({ children }: { children: React.ReactNode }) => {
          return;
       }
 
-      const res = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          phone: formattedPhone,
-          country: countryData.name,
-        }),
-      });
+      // We handle missing Vercel config locally with a fallback or error
+      let res;
+      try {
+        res = await fetch("/api/auth/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: data.name,
+            email: data.email,
+            phone: formattedPhone,
+            country: countryData.name,
+          }),
+        });
+      } catch (networkError) {
+        throw new Error("Network error or backend not running.");
+      }
 
       if (res.status === 400) {
         toast({
@@ -83,13 +89,14 @@ export const SignupDialog = ({ children }: { children: React.ReactNode }) => {
         setIsOpen(false);
         navigate("/crypto");
       } else {
-        throw new Error("Unexpected failure");
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || "Unexpected failure");
       }
-    } catch (err) {
+    } catch (err: any) {
       toast({
         variant: "destructive",
-        title: "Unexpected Error",
-        description: "An unexpected error occurred.",
+        title: "Registration Failed",
+        description: err.message || "An unexpected error occurred.",
       });
     } finally {
       setIsLoading(false);
@@ -99,61 +106,55 @@ export const SignupDialog = ({ children }: { children: React.ReactNode }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-[450px] p-0 border-none bg-transparent overflow-hidden shadow-2xl">
-        <div className="relative bg-black/90 backdrop-blur-xl border border-white/10 p-8 rounded-3xl overflow-hidden">
-          {/* Abstract glowing background effects */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/20 rounded-full blur-[80px] pointer-events-none transform translate-x-1/2 -translate-y-1/2" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-[80px] pointer-events-none transform -translate-x-1/2 translate-y-1/2" />
-
-          <div className="relative z-10">
-            <div className="mb-8 text-center">
-              <h2 className="text-3xl font-bold text-white mb-2 tracking-tight">Create Account</h2>
-              <p className="text-white/60 text-sm">Join Nova Assets for exclusive crypto insights.</p>
+      <DialogContent className="sm:max-w-[500px] p-0 border border-border bg-background shadow-2xl rounded-2xl overflow-hidden">
+        <div className="p-8 lg:p-10">
+          <div className="mb-8 text-center">
+            <h2 className="text-3xl font-bold text-foreground mb-2">Create Account</h2>
+            <p className="text-muted-foreground text-sm">Join Nova Assets for exclusive crypto insights.</p>
+          </div>
+          
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            <div className="space-y-1">
+              <Input 
+                className="h-12 px-4 rounded-lg border-border bg-muted/30 text-foreground placeholder:text-muted-foreground focus:bg-background focus:border-foreground transition-all" 
+                placeholder="Full Name" 
+                {...register("name")} 
+              />
+              {errors.name && <p className="text-red-500 text-xs px-1 mt-1">{errors.name.message}</p>}
             </div>
             
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <div className="space-y-1">
+            <div className="space-y-1">
+              <Input 
+                className="h-12 px-4 rounded-lg border-border bg-muted/30 text-foreground placeholder:text-muted-foreground focus:bg-background focus:border-foreground transition-all" 
+                placeholder="Email Address" 
+                type="email" 
+                {...register("email")} 
+              />
+              {errors.email && <p className="text-red-500 text-xs px-1 mt-1">{errors.email.message}</p>}
+            </div>
+            
+            <div className="grid grid-cols-3 gap-3">
+              <div className="col-span-1">
+                <CountrySelect value={selectedCountry} onChange={(val) => setValue("country", val)} />
+              </div>
+              <div className="col-span-2 space-y-1">
                 <Input 
-                  className="h-14 px-4 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-white/40 focus:bg-white/10 focus:border-white/30 transition-all shadow-inner" 
-                  placeholder="Full Name" 
-                  {...register("name")} 
+                  className="h-12 px-4 rounded-lg border-border bg-muted/30 text-foreground placeholder:text-muted-foreground focus:bg-background focus:border-foreground transition-all" 
+                  placeholder={`Phone (${selectedCountryData?.example || ''})`} 
+                  {...register("phone")} 
                 />
-                {errors.name && <p className="text-red-400 text-xs px-2 mt-1">{errors.name.message}</p>}
+                {errors.phone && <p className="text-red-500 text-xs px-1 mt-1">{errors.phone.message}</p>}
               </div>
-              
-              <div className="space-y-1">
-                <Input 
-                  className="h-14 px-4 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-white/40 focus:bg-white/10 focus:border-white/30 transition-all shadow-inner" 
-                  placeholder="Email Address" 
-                  type="email" 
-                  {...register("email")} 
-                />
-                {errors.email && <p className="text-red-400 text-xs px-2 mt-1">{errors.email.message}</p>}
-              </div>
-              
-              <div className="grid grid-cols-3 gap-3">
-                <div className="col-span-1">
-                  <CountrySelect value={selectedCountry} onChange={(val) => setValue("country", val)} />
-                </div>
-                <div className="col-span-2 space-y-1">
-                  <Input 
-                    className="h-14 px-4 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-white/40 focus:bg-white/10 focus:border-white/30 transition-all shadow-inner" 
-                    placeholder={`Phone (${selectedCountryData?.example || ''})`} 
-                    {...register("phone")} 
-                  />
-                  {errors.phone && <p className="text-red-400 text-xs px-2 mt-1">{errors.phone.message}</p>}
-                </div>
-              </div>
+            </div>
 
-              <Button 
-                type="submit" 
-                className="w-full h-14 mt-6 rounded-xl font-bold bg-white text-black hover:bg-gray-200 transition-all text-base shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]" 
-                disabled={isLoading}
-              >
-                {isLoading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : "Sign Up Securely"}
-              </Button>
-            </form>
-          </div>
+            <Button 
+              type="submit" 
+              className="w-full h-12 mt-4 rounded-lg font-bold bg-foreground text-background hover:opacity-90 transition-all text-base" 
+              disabled={isLoading}
+            >
+              {isLoading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : "Sign Up Securely"}
+            </Button>
+          </form>
         </div>
       </DialogContent>
     </Dialog>
