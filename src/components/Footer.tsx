@@ -12,13 +12,7 @@ const Footer = () => {
           {/* Brand & Address */}
           <div className="lg:col-span-5 space-y-6">
             <ScrollReveal>
-              <h3 className="text-serif text-3xl lg:text-4xl font-bold mb-6 transition-colors">VERTEX IQ</h3>
-
-              <div className="space-y-2 mt-6">
-                <p className="text-sans text-xs font-bold text-background/40 uppercase tracking-[0.2em]">Contact & Hours</p>
-                <p className="text-sans text-sm text-background/80">Support@vertexiq.com</p>
-                <p className="text-sans text-sm text-background/60">24/7 Crypto Support</p>
-              </div>
+              <h3 className="text-serif text-3xl lg:text-4xl font-bold mb-6 transition-colors">NOVA ASSETS</h3>
             </ScrollReveal>
           </div>
 
@@ -68,7 +62,7 @@ const Footer = () => {
             </ScrollReveal>
           </div>
 
-          {/* Practice Areas -> Crypto */}
+          {/* Resources */}
           <div className="lg:col-span-3">
             <ScrollReveal delay={0.2}>
               <h4 className="text-serif text-lg font-bold text-background mb-6">Resources</h4>
@@ -86,18 +80,13 @@ const Footer = () => {
         {/* Big Text */}
         <div className="border-t border-background/10 mt-16 pt-12 relative overflow-hidden">
           <div className="flex justify-center lg:justify-start pointer-events-none">
-            <TypewriterText text="VERTEX IQ" className="text-[15vw] sm:text-[14vw] lg:text-[12vw] leading-none font-serif font-bold text-background/90 tracking-[0.1em] sm:tracking-[0.2em] opacity-10 select-none whitespace-nowrap" />
+            <TypewriterText text="NOVA ASSETS" className="text-[15vw] sm:text-[14vw] lg:text-[12vw] leading-none font-serif font-bold text-background/90 tracking-[0.1em] sm:tracking-[0.2em] opacity-10 select-none whitespace-nowrap" />
           </div>
         </div>
 
         {/* Bottom Bar */}
         <div className="border-t border-background/10 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-background/40">
-          <p>© {currentYear} Vertex IQ - All Rights Reserved.</p>
-          <div className="flex items-center gap-6">
-            <p>
-              Developed by <a href="https://www.zyradigitals.com" target="_blank" rel="noopener noreferrer" className="text-background/60 hover:text-background transition-colors font-medium">Zyra Digitals</a>
-            </p>
-          </div>
+          <p>© {currentYear} Nova Assets - All Rights Reserved.</p>
         </div>
       </div>
     </footer>

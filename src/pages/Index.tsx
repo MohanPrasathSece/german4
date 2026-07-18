@@ -14,8 +14,8 @@ const Index = () => {
   return (
     <main className="min-h-screen bg-background text-foreground overflow-hidden">
       <SEO
-        title="Vertex IQ | Crypto Investments"
-        description="Invest in the Future of Crypto with Vertex IQ."
+        title="Nova Assets | Crypto Investments"
+        description="Invest in the Future of Crypto with Nova Assets."
       />
       <Navbar />
 
@@ -28,7 +28,7 @@ const Index = () => {
               Invest in the <span className="opacity-70 font-serif italic">Future of Crypto</span>
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-lg">
-              Unlock the power of digital assets with Vertex IQ. We provide secure, data-driven crypto investment strategies for the modern investor.
+              Unlock the power of digital assets with Nova Assets. We provide secure, data-driven crypto investment strategies for the modern investor.
             </p>
             <div className="flex gap-4">
               <a href="#contact" className="px-8 py-4 bg-foreground text-background hover:opacity-90 rounded-full font-semibold transition-all">
@@ -41,19 +41,25 @@ const Index = () => {
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
-            <div className="relative aspect-square w-full max-w-md mx-auto">
-              <div className="absolute inset-0 bg-foreground/10 rounded-full blur-3xl animate-pulse" />
-              <div className="relative h-full w-full bg-background/50 backdrop-blur-xl border border-border rounded-3xl shadow-2xl p-8 flex flex-col justify-center items-center">
-                <div className="text-foreground font-bold text-4xl mb-2">Bitcoin (BTC)</div>
-                <div className="text-5xl font-bold mb-4 opacity-80">$64,230.00</div>
-                <div className="text-foreground/60 font-semibold text-xl border border-border px-4 py-1 rounded-full">+4.2% Today</div>
+            {/* New Abstract Hero Right Side */}
+            <div className="relative aspect-square w-full max-w-md mx-auto flex items-center justify-center">
+              <div className="absolute inset-0 bg-foreground/5 rounded-full blur-3xl animate-pulse" />
+              
+              <div className="relative w-64 h-64 border border-border rounded-full flex items-center justify-center animate-[spin_20s_linear_infinite]">
+                 <div className="absolute w-8 h-8 bg-foreground rounded-full -top-4 left-1/2 -translate-x-1/2 shadow-[0_0_20px_rgba(0,0,0,0.5)] dark:shadow-[0_0_20px_rgba(255,255,255,0.5)]" />
+                 <div className="w-48 h-48 border border-border border-dashed rounded-full flex items-center justify-center animate-[spin_15s_linear_infinite_reverse]">
+                   <div className="absolute w-6 h-6 bg-foreground/60 rounded-full -bottom-3 left-1/2 -translate-x-1/2" />
+                   <div className="w-32 h-32 bg-foreground/10 rounded-full backdrop-blur-3xl flex items-center justify-center border border-border">
+                     <span className="font-bold text-2xl tracking-widest text-foreground">NOVA</span>
+                   </div>
+                 </div>
               </div>
             </div>
           </ScrollReveal>
         </div>
       </section>
 
-      <Ticker text="CRYPTO • INVESTMENTS • SECURE • DECENTRALIZED • VERTEX IQ • " />
+      <Ticker text="CRYPTO • INVESTMENTS • SECURE • DECENTRALIZED • NOVA ASSETS • " />
 
       {/* Section 2: About Us */}
       <section id="about" className="py-24 px-6 lg:px-12 bg-muted/30 relative border-y border-border">
@@ -62,7 +68,7 @@ const Index = () => {
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold mb-6 text-foreground">Who We Are & What We Do</h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Vertex IQ is a premier cryptocurrency investment firm. We bridge the gap between traditional finance and decentralized markets, offering our clients exposure to the most promising digital assets with institutional-grade security.
+                Nova Assets is a premier cryptocurrency investment firm. We bridge the gap between traditional finance and decentralized markets, offering our clients exposure to the most promising digital assets with institutional-grade security.
               </p>
             </div>
           </ScrollReveal>
@@ -122,8 +128,6 @@ const Index = () => {
           </ScrollReveal>
         </div>
       </section>
-
-      <Ticker text="BLOCKCHAIN • YIELD • STRATEGY • TRADING • VERTEX IQ • " />
 
       {/* Section 4: Contact Us */}
       <section id="contact" className="py-24 px-6 lg:px-12 bg-muted/50 border-t border-border">

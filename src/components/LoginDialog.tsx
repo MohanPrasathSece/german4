@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
@@ -28,7 +28,7 @@ export const LoginDialog = ({ children }: { children: React.ReactNode }) => {
       if (res.ok) {
         toast({
           title: "Login Successful",
-          description: "Welcome back to Vertex IQ",
+          description: "Welcome back to Nova Assets",
         });
         setIsOpen(false);
         navigate("/crypto");
@@ -53,22 +53,26 @@ export const LoginDialog = ({ children }: { children: React.ReactNode }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-[400px]">
-        <DialogHeader>
-          <DialogTitle className="text-2xl font-bold mb-4">Login</DialogTitle>
+      <DialogContent className="sm:max-w-[400px] bg-background border-border p-8 rounded-3xl shadow-2xl">
+        <DialogHeader className="mb-6">
+          <DialogTitle className="text-3xl font-bold text-foreground">Welcome Back</DialogTitle>
+          <DialogDescription className="text-muted-foreground mt-2 text-base">
+            Log in to your Nova Assets account to access your portfolio.
+          </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleLogin} className="space-y-4">
-          <div>
+        <form onSubmit={handleLogin} className="space-y-6">
+          <div className="space-y-1">
             <Input 
               type="email" 
               placeholder="Email Address" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              className="h-12 px-4 rounded-xl border-border bg-muted/50 focus:bg-background"
             />
           </div>
-          <Button type="submit" className="w-full bg-foreground hover:opacity-90 text-background" disabled={isLoading}>
-            {isLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : "Sign In"}
+          <Button type="submit" className="w-full h-12 rounded-xl font-bold bg-foreground text-background hover:opacity-90 transition-all text-base" disabled={isLoading}>
+            {isLoading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : "Sign In Securely"}
           </Button>
         </form>
       </DialogContent>

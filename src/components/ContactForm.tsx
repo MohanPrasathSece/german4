@@ -154,7 +154,7 @@ const ContactForm = () => {
 
       <Button 
         type="submit" 
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white" 
+        className="w-full bg-foreground hover:opacity-90 text-background"
         disabled={isLoading}
       >
         {isLoading ? (

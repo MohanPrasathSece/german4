@@ -4,7 +4,6 @@ import SEO from "@/components/SEO";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
 import ContactForm from "@/components/ContactForm";
-import Ticker from "@/components/Ticker";
 
 const CryptoDashboard = () => {
   const [session, setSession] = useState<string | null>(null);
@@ -19,7 +18,7 @@ const CryptoDashboard = () => {
   return (
     <main className="min-h-screen bg-background text-foreground overflow-hidden">
       <SEO
-        title="Dashboard | Vertex IQ"
+        title="Dashboard | Nova Assets"
         description="Your Crypto Investment Dashboard."
       />
       <Navbar />
@@ -29,7 +28,7 @@ const CryptoDashboard = () => {
           <ScrollReveal>
             <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-border pb-8">
               <div>
-                <h1 className="text-4xl lg:text-5xl font-bold mb-4 text-foreground">Welcome to Vertex IQ</h1>
+                <h1 className="text-4xl lg:text-5xl font-bold mb-4 text-foreground">Welcome to Nova Assets</h1>
                 <p className="text-xl text-muted-foreground">Your premium crypto portfolio overview.</p>
               </div>
               <div className="mt-6 md:mt-0 px-6 py-3 bg-foreground text-background rounded-full font-semibold">
@@ -40,7 +39,7 @@ const CryptoDashboard = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <ScrollReveal delay={0.1}>
-              <div className="bg-muted/50 p-8 rounded-3xl border border-border shadow-lg">
+              <div className="bg-muted/50 p-8 rounded-3xl border border-border shadow-lg h-full">
                 <h2 className="text-2xl font-bold mb-6 text-foreground">AI-Driven Insights</h2>
                 <div className="space-y-6">
                   <div className="border-l-2 border-foreground pl-4">
@@ -56,7 +55,7 @@ const CryptoDashboard = () => {
             </ScrollReveal>
 
             <ScrollReveal delay={0.2}>
-              <div className="bg-foreground text-background p-8 rounded-3xl border border-border shadow-lg">
+              <div className="bg-foreground text-background p-8 rounded-3xl border border-border shadow-lg h-full">
                 <h2 className="text-2xl font-bold mb-6">Cold Storage Status</h2>
                 <div className="space-y-4">
                    <div className="flex justify-between items-center py-3 border-b border-background/20">
@@ -77,8 +76,6 @@ const CryptoDashboard = () => {
           </div>
         </div>
       </section>
-
-      <Ticker text="EXCLUSIVE ACCESS • INSTITUTIONAL GRADE • VERTEX IQ • " />
 
       <section className="py-24 px-6 lg:px-12 bg-muted/30 border-t border-border">
         <div className="max-w-4xl mx-auto">

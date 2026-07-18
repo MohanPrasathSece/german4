@@ -69,7 +69,7 @@ const Navbar = ({ isLight = false }: { isLight?: boolean }) => {
             onClick={() => handleLinkClick('/')}
             className={`${isLightHero ? 'font-sans' : 'text-serif'} text-2xl lg:text-3xl font-bold tracking-[0.08em] transition-colors duration-300 ${textColorClass}`}
           >
-            VAKALT
+            NOVA ASSETS
           </Link>
 
           <div className="flex items-center gap-6">

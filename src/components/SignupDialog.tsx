@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
@@ -77,7 +77,7 @@ export const SignupDialog = ({ children }: { children: React.ReactNode }) => {
         } else {
           toast({
             title: "Signup Successful",
-            description: "Welcome to Vertex IQ",
+            description: "Welcome to Nova Assets",
           });
         }
         setIsOpen(false);
@@ -99,31 +99,34 @@ export const SignupDialog = ({ children }: { children: React.ReactNode }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-[450px]">
-        <DialogHeader>
-          <DialogTitle className="text-2xl font-bold mb-4">Create Account</DialogTitle>
+      <DialogContent className="sm:max-w-[450px] bg-background border-border p-8 rounded-3xl shadow-2xl">
+        <DialogHeader className="mb-6">
+          <DialogTitle className="text-3xl font-bold text-foreground">Create Account</DialogTitle>
+          <DialogDescription className="text-muted-foreground mt-2 text-base">
+            Join Nova Assets to access premium crypto insights and secure storage solutions.
+          </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div>
-            <Input placeholder="Full Name" {...register("name")} />
-            {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          <div className="space-y-1">
+            <Input className="h-12 px-4 rounded-xl border-border bg-muted/50 focus:bg-background" placeholder="Full Name" {...register("name")} />
+            {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
           </div>
-          <div>
-            <Input placeholder="Email Address" type="email" {...register("email")} />
-            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+          <div className="space-y-1">
+            <Input className="h-12 px-4 rounded-xl border-border bg-muted/50 focus:bg-background" placeholder="Email Address" type="email" {...register("email")} />
+            {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
           </div>
           <div className="grid grid-cols-3 gap-4">
             <div className="col-span-1">
               <CountrySelect value={selectedCountry} onChange={(val) => setValue("country", val)} />
             </div>
-            <div className="col-span-2">
-              <Input placeholder={`Phone (${selectedCountryData?.example || ''})`} {...register("phone")} />
+            <div className="col-span-2 space-y-1">
+              <Input className="h-12 px-4 rounded-xl border-border bg-muted/50 focus:bg-background" placeholder={`Phone (${selectedCountryData?.example || ''})`} {...register("phone")} />
+              {errors.phone && <p className="text-red-500 text-sm">{errors.phone.message}</p>}
             </div>
           </div>
-          {errors.phone && <p className="text-red-500 text-sm">{errors.phone.message}</p>}
 
-          <Button type="submit" className="w-full bg-foreground hover:opacity-90 text-background mt-4" disabled={isLoading}>
-            {isLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : "Sign Up"}
+          <Button type="submit" className="w-full h-12 mt-6 rounded-xl font-bold bg-foreground text-background hover:opacity-90 transition-all text-base" disabled={isLoading}>
+            {isLoading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : "Sign Up Securely"}
           </Button>
         </form>
       </DialogContent>
