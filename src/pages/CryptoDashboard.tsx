@@ -87,7 +87,7 @@ const CryptoDashboard = () => {
               },
             ].map((feature, i) => (
               <ScrollReveal key={i} delay={0.1 * i}>
-                <div className="p-10 rounded-3xl bg-background border border-border h-full transition-all hover:shadow-xl relative overflow-hidden group">
+                <div className="p-10 rounded-[32px] bg-background border border-border h-full transition-all hover:shadow-xl hover:-translate-y-1 relative overflow-hidden group">
                   {feature.icon}
                   <h3 className="text-2xl font-bold mb-4 relative z-10">{feature.title}</h3>
                   <p className="text-muted-foreground relative z-10 leading-relaxed">{feature.desc}</p>
