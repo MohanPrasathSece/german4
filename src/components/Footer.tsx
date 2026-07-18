@@ -11,13 +11,13 @@ const Footer = () => {
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-background/70">
-          <Link to="/" className="hover:text-background transition-colors">Home</Link>
-          <Link to="/privacy-policy" className="hover:text-background transition-colors">Privacy Policy</Link>
-          <Link to="/terms-and-conditions" className="hover:text-background transition-colors">Terms</Link>
+          <Link to="/" className="hover:text-background transition-colors">Startseite</Link>
+          <Link to="/privacy-policy" className="hover:text-background transition-colors">Datenschutz</Link>
+          <Link to="/terms-and-conditions" className="hover:text-background transition-colors">AGB</Link>
         </div>
 
         <div className="text-xs text-background/50 text-center sm:text-right">
-          © {currentYear} Nova Assets. All rights reserved.
+          © {currentYear} Nova Assets. Alle Rechte vorbehalten.
         </div>
       </div>
     </footer>

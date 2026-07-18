@@ -10,10 +10,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  phone: z.string().min(5, "Phone number is required"),
-  country: z.string().min(2, "Country is required"),
+  name: z.string().min(2, "Name muss mindestens 2 Zeichen lang sein"),
+  email: z.string().email("Ungültige E-Mail-Adresse"),
+  phone: z.string().min(5, "Telefonnummer ist erforderlich"),
+  country: z.string().min(2, "Land ist erforderlich"),
   message: z.string().optional(),
 });
 
@@ -45,7 +45,7 @@ const ContactForm = () => {
 
     try {
       const countryData = COUNTRIES.find(c => c.iso === data.country);
-      if (!countryData) throw new Error("Invalid country");
+      if (!countryData) throw new Error("Ungültiges Land");
 
       const formattedPhone = formatPhoneWithPrefix(data.phone, countryData.dialCode);
 
@@ -53,8 +53,8 @@ const ContactForm = () => {
       if (!countryData.regex.test(formattedPhone)) {
          toast({
           variant: "destructive",
-          title: "Invalid Phone Number",
-          description: `Example format for ${countryData.name}: ${countryData.example}`,
+          title: "Ungültige Telefonnummer",
+          description: `Beispielformat für ${countryData.name}: ${countryData.example}`,
          });
          setIsLoading(false);
          return;
@@ -77,27 +77,27 @@ const ContactForm = () => {
       if (res.status === 400) {
         toast({
           variant: "destructive",
-          title: "Invalid Details",
-          description: "We couldn't process your enquiry with the information provided. Please review your details and try again.",
+          title: "Ungültige Details",
+          description: "Wir konnten Ihre Anfrage mit den angegebenen Informationen nicht bearbeiten. Bitte überprüfen Sie Ihre Daten und versuchen Sie es erneut.",
         });
       } else if (res.status === 409) {
         toast({
-          title: "Request Received",
-          description: "It looks like you've already contacted us. We've recognized your details and will continue with your request.",
+          title: "Anfrage erhalten",
+          description: "Es sieht so aus, als hätten Sie uns bereits kontaktiert. Wir haben Ihre Daten erkannt und werden Ihre Anfrage weiter bearbeiten.",
         });
       } else if (res.ok) {
         toast({
-          title: "Success",
-          description: "Your message has been sent successfully. Our advisors will contact you shortly.",
+          title: "Erfolg",
+          description: "Ihre Nachricht wurde erfolgreich gesendet. Unsere Berater werden sich in Kürze bei Ihnen melden.",
         });
       } else {
-        throw new Error("Unexpected failure");
+        throw new Error("Unerwarteter Fehler");
       }
     } catch (err) {
       toast({
         variant: "destructive",
-        title: "Unexpected Error",
-        description: "An unexpected error occurred. Please try again later.",
+        title: "Unerwarteter Fehler",
+        description: "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es später noch einmal.",
       });
     } finally {
       setIsLoading(false);
@@ -109,7 +109,7 @@ const ContactForm = () => {
       <div className="space-y-4">
         <div>
           <Input 
-            placeholder="Full Name" 
+            placeholder="Vollständiger Name" 
             {...register("name")} 
             className="bg-white/5 dark:bg-slate-900/50"
           />
@@ -118,7 +118,7 @@ const ContactForm = () => {
 
         <div>
           <Input 
-            placeholder="Email Address" 
+            placeholder="E-Mail-Adresse" 
             type="email"
             {...register("email")} 
             className="bg-white/5 dark:bg-slate-900/50"
@@ -135,7 +135,7 @@ const ContactForm = () => {
           </div>
           <div className="col-span-2">
             <Input 
-              placeholder={`Phone (e.g. ${selectedCountryData?.example || ''})`} 
+              placeholder={`Telefon (z.B. ${selectedCountryData?.example || ''})`} 
               {...register("phone")} 
               className="bg-white/5 dark:bg-slate-900/50"
             />
@@ -145,7 +145,7 @@ const ContactForm = () => {
 
         <div>
           <Textarea 
-            placeholder="Message (Optional)" 
+            placeholder="Nachricht (Optional)" 
             {...register("message")}
             className="min-h-[120px] bg-white/5 dark:bg-slate-900/50"
           />
@@ -160,10 +160,10 @@ const ContactForm = () => {
         {isLoading ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Sending...
+            Senden...
           </>
         ) : (
-          "Send Message"
+          "Nachricht senden"
         )}
       </Button>
     </form>

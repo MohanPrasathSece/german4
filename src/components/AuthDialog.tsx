@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Loader2, AlertCircle, Shield, TrendingUp, Lock, ArrowRight, Eye, EyeOff } from "lucide-react";
+import { Loader2, AlertCircle, Shield, TrendingUp, Lock, ArrowRight } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -9,23 +9,23 @@ import * as z from "zod";
 import { CountrySelect, COUNTRIES, formatPhoneWithPrefix } from "./CountrySelect";
 
 const signupSchema = z.object({
-  name: z.string().min(2, "Full name is required"),
-  email: z.string().email("Please enter a valid email"),
-  phone: z.string().min(5, "Phone number is required"),
-  country: z.string().min(2, "Country is required"),
+  name: z.string().min(2, "Vollständiger Name ist erforderlich"),
+  email: z.string().email("Bitte geben Sie eine gültige E-Mail-Adresse ein"),
+  phone: z.string().min(5, "Telefonnummer ist erforderlich"),
+  country: z.string().min(2, "Land ist erforderlich"),
 });
 
 const loginSchema = z.object({
-  email: z.string().email("Please enter a valid email"),
+  email: z.string().email("Bitte geben Sie eine gültige E-Mail-Adresse ein"),
 });
 
 type SignupFormValues = z.infer<typeof signupSchema>;
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 const features = [
-  { icon: <Shield className="w-5 h-5" />, text: "Bank-grade encryption" },
-  { icon: <TrendingUp className="w-5 h-5" />, text: "AI-powered trading bots" },
-  { icon: <Lock className="w-5 h-5" />, text: "Cold storage protection" },
+  { icon: <Shield className="w-5 h-5" />, text: "Bankenübliche Verschlüsselung" },
+  { icon: <TrendingUp className="w-5 h-5" />, text: "KI-gestützte Trading-Bots" },
+  { icon: <Lock className="w-5 h-5" />, text: "Cold-Storage-Schutz" },
 ];
 
 export const AuthDialog = ({
@@ -66,11 +66,11 @@ export const AuthDialog = ({
     setServerError(null);
     try {
       const countryData = COUNTRIES.find((c) => c.iso === data.country);
-      if (!countryData) throw new Error("Invalid country");
+      if (!countryData) throw new Error("Ungültiges Land");
       const formattedPhone = formatPhoneWithPrefix(data.phone, countryData.dialCode);
 
       if (!countryData.regex.test(formattedPhone)) {
-        setServerError(`Phone format for ${countryData.name}: ${countryData.example}`);
+        setServerError(`Telefonformat für ${countryData.name}: ${countryData.example}`);
         setIsLoading(false);
         return;
       }
@@ -85,25 +85,25 @@ export const AuthDialog = ({
           country: countryData.name,
         }),
       }).catch(() => {
-        throw new Error("Network error - please try again");
+        throw new Error("Netzwerkfehler - bitte versuchen Sie es erneut");
       });
 
       if (res.status === 400) {
-        setServerError("We couldn't process your details. Please check and try again.");
+        setServerError("Wir konnten Ihre Daten nicht verarbeiten. Bitte überprüfen Sie diese und versuchen Sie es erneut.");
       } else if (res.ok || res.status === 409) {
         toast({
-          title: res.status === 409 ? "Welcome Back" : "Account Created",
-          description: "You now have access to the Nova Assets platform.",
+          title: res.status === 409 ? "Willkommen zurück" : "Konto erstellt",
+          description: "Sie haben nun Zugang zur Nova Assets Plattform.",
         });
         setIsOpen(false);
         localStorage.setItem("nova_auth", "true");
         navigate("/crypto");
       } else {
         const errorData = await res.json().catch(() => ({}));
-        throw new Error(errorData.error || "Something went wrong");
+        throw new Error(errorData.error || "Etwas ist schief gelaufen");
       }
     } catch (err: any) {
-      setServerError(err.message || "An unexpected error occurred.");
+      setServerError(err.message || "Ein unerwarteter Fehler ist aufgetreten.");
     } finally {
       setIsLoading(false);
     }
@@ -118,23 +118,23 @@ export const AuthDialog = ({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: data.email }),
       }).catch(() => {
-        throw new Error("Network error - please try again");
+        throw new Error("Netzwerkfehler - bitte versuchen Sie es erneut");
       });
 
       if (res.ok) {
         toast({
-          title: "Login Successful",
-          description: "Welcome back to Nova Assets.",
+          title: "Anmeldung erfolgreich",
+          description: "Willkommen zurück bei Nova Assets.",
         });
         setIsOpen(false);
         localStorage.setItem("nova_auth", "true");
         navigate("/crypto");
       } else {
         const errorData = await res.json().catch(() => ({}));
-        throw new Error(errorData.error || "Account not found. Please sign up first.");
+        throw new Error(errorData.error || "Konto nicht gefunden. Bitte registrieren Sie sich zuerst.");
       }
     } catch (err: any) {
-      setServerError(err.message || "An unexpected error occurred.");
+      setServerError(err.message || "Ein unerwarteter Fehler ist aufgetreten.");
     } finally {
       setIsLoading(false);
     }
@@ -170,15 +170,15 @@ export const AuthDialog = ({
             <div className="relative z-10">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold tracking-wider mb-6">
                 <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
-                LIMITED SPOTS REMAINING
+                NUR NOCH WENIGE PLÄTZE VERFÜGBAR
               </div>
               <h2 className="text-white text-3xl font-bold leading-tight mb-4">
-                {view === "signup" ? "Join the Inner Circle" : "Welcome Back"}
+                {view === "signup" ? "Werden Sie Teil des Inner Circle" : "Willkommen zurück"}
               </h2>
               <p className="text-white/50 text-sm leading-relaxed">
                 {view === "signup"
-                  ? "Our proprietary algorithms are strictly limited to a closed group of investors to maintain performance."
-                  : "Your capital is working around the clock. Access your secure portfolio dashboard."}
+                  ? "Unsere proprietären Algorithmen sind streng auf eine geschlossene Investorengruppe limitiert, um die Leistung aufrechtzuerhalten."
+                  : "Ihr Kapital arbeitet rund um die Uhr. Greifen Sie auf Ihr sicheres Portfolio-Dashboard zu."}
               </p>
 
               {/* Feature list */}
@@ -196,7 +196,7 @@ export const AuthDialog = ({
 
             {/* Bottom notice */}
             <div className="relative z-10 text-white/30 text-xs leading-relaxed">
-              By continuing, you agree to our terms of service and privacy policy.
+              Durch die Fortsetzung stimmen Sie unseren Nutzungsbedingungen und Datenschutzrichtlinien zu.
             </div>
           </div>
 
@@ -219,7 +219,7 @@ export const AuthDialog = ({
                     : "text-gray-500 hover:text-gray-700"
                 }`}
               >
-                Sign Up
+                Registrieren
               </button>
               <button
                 type="button"
@@ -230,19 +230,19 @@ export const AuthDialog = ({
                     : "text-gray-500 hover:text-gray-700"
                 }`}
               >
-                Log In
+                Anmelden
               </button>
             </div>
 
             {/* Title */}
             <div className="mb-6">
               <h3 className="text-2xl font-bold text-gray-900">
-                {view === "signup" ? "Create your account" : "Welcome back"}
+                {view === "signup" ? "Konto erstellen" : "Willkommen zurück"}
               </h3>
               <p className="text-gray-500 text-sm mt-1">
                 {view === "signup"
-                  ? "Secure your allocation before spots run out."
-                  : "Access your personal investment dashboard."}
+                  ? "Sichern Sie sich Ihre Zuteilung, bevor die Plätze vergeben sind."
+                  : "Greifen Sie auf Ihr persönliches Investment-Dashboard zu."}
               </p>
             </div>
 
@@ -260,7 +260,7 @@ export const AuthDialog = ({
                 {/* Name */}
                 <div>
                   <input
-                    placeholder="Full Name"
+                    placeholder="Vollständiger Name"
                     className="w-full h-12 px-4 bg-gray-50 border border-gray-200 rounded-2xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900/10 focus:border-gray-900 transition-all"
                     {...signupForm.register("name")}
                   />
@@ -273,7 +273,7 @@ export const AuthDialog = ({
                 <div>
                   <input
                     type="email"
-                    placeholder="Email Address"
+                    placeholder="E-Mail-Adresse"
                     className="w-full h-12 px-4 bg-gray-50 border border-gray-200 rounded-2xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900/10 focus:border-gray-900 transition-all"
                     {...signupForm.register("email")}
                   />
@@ -292,7 +292,7 @@ export const AuthDialog = ({
                   </div>
                   <div className="flex-1">
                     <input
-                      placeholder={selectedCountryData?.example || "Phone number"}
+                      placeholder={selectedCountryData?.example || "Telefonnummer"}
                       className="w-full h-12 px-4 bg-gray-50 border border-gray-200 rounded-2xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900/10 focus:border-gray-900 transition-all"
                       {...signupForm.register("phone")}
                     />
@@ -311,7 +311,7 @@ export const AuthDialog = ({
                     <Loader2 className="h-4 w-4 animate-spin" />
                   ) : (
                     <>
-                      Secure My Spot
+                      Meinen Platz sichern
                       <ArrowRight className="w-4 h-4" />
                     </>
                   )}
@@ -322,7 +322,7 @@ export const AuthDialog = ({
                 <div>
                   <input
                     type="email"
-                    placeholder="Email Address"
+                    placeholder="E-Mail-Adresse"
                     className="w-full h-12 px-4 bg-gray-50 border border-gray-200 rounded-2xl text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900/10 focus:border-gray-900 transition-all"
                     {...loginForm.register("email")}
                   />
@@ -340,7 +340,7 @@ export const AuthDialog = ({
                     <Loader2 className="h-4 w-4 animate-spin" />
                   ) : (
                     <>
-                      Access Dashboard
+                      Zum Dashboard
                       <ArrowRight className="w-4 h-4" />
                     </>
                   )}
@@ -351,15 +351,15 @@ export const AuthDialog = ({
             {/* Bottom switch */}
             <p className="text-center text-sm text-gray-400 mt-6">
               {view === "signup" ? (
-                <>Already a member?{" "}
+                <>Bereits Mitglied?{" "}
                   <button type="button" onClick={() => { setView("login"); setServerError(null); }} className="text-gray-900 font-semibold hover:underline">
-                    Sign In
+                    Anmelden
                   </button>
                 </>
               ) : (
-                <>Don't have an account?{" "}
+                <>Noch kein Konto?{" "}
                   <button type="button" onClick={() => { setView("signup"); setServerError(null); }} className="text-gray-900 font-semibold hover:underline">
-                    Create One
+                    Eins erstellen
                   </button>
                 </>
               )}

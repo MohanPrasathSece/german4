@@ -6,9 +6,9 @@ import { Input } from "./ui/input";
 import { AuthDialog } from "./AuthDialog";
 
 const navLinks = [
-  { label: "Security", href: "/#security" },
-  { label: "Strategy", href: "/#about" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Sicherheit", href: "/#security" },
+  { label: "Strategie", href: "/#about" },
+  { label: "Kontakt", href: "/#contact" },
 ];
 
 const Navbar = ({ isLight = false }: { isLight?: boolean }) => {
@@ -88,13 +88,13 @@ const Navbar = ({ isLight = false }: { isLight?: boolean }) => {
 
             <AuthDialog defaultView="login">
               <button className={`hidden lg:inline-block text-sans text-[10px] font-bold tracking-[0.1em] uppercase transition-all duration-500 ${textColorClass} hover:opacity-70 mr-4`}>
-                Login
+                Anmelden
               </button>
             </AuthDialog>
 
             <AuthDialog defaultView="signup">
               <button className={`hidden lg:inline-block text-sans text-[10px] font-bold tracking-[0.1em] uppercase border px-6 py-2.5 rounded-full transition-all duration-500 ${borderColorClass} ${textColorClass} ${hoverBgClass}`}>
-                Sign Up
+                Registrieren
               </button>
             </AuthDialog>
 
@@ -147,7 +147,7 @@ const Navbar = ({ isLight = false }: { isLight?: boolean }) => {
                     <Search className="w-5 h-5 text-muted-foreground" />
                     <Input
                       autoFocus
-                      placeholder="Search assets..."
+                      placeholder="Werte suchen..."
                       className="border-none shadow-none text-lg focus-visible:ring-0 p-0 h-auto"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
@@ -161,9 +161,9 @@ const Navbar = ({ isLight = false }: { isLight?: boolean }) => {
                       <div className="space-y-1">
                         {(() => {
                           const searchItems = [
-                            { label: "Home", href: "/", desc: "Return to homepage" },
-                            { label: "Dashboard", href: "/crypto", desc: "View your crypto portfolio" },
-                            { label: "Contact Us", href: "/#contact", desc: "Get in touch with our experts" },
+                            { label: "Startseite", href: "/", desc: "Zurück zur Startseite" },
+                            { label: "Dashboard", href: "/crypto", desc: "Ihr Krypto-Portfolio ansehen" },
+                            { label: "Kontakt", href: "/#contact", desc: "Kontaktieren Sie unsere Experten" },
                           ];
 
                           const filteredItems = searchItems.filter(i =>
@@ -184,7 +184,7 @@ const Navbar = ({ isLight = false }: { isLight?: boolean }) => {
                               </Link>
                             ))
                           ) : (
-                            <p className="text-sm text-muted-foreground p-3 text-center">No matching results.</p>
+                            <p className="text-sm text-muted-foreground p-3 text-center">Keine übereinstimmenden Ergebnisse.</p>
                           );
                         })()}
                       </div>
@@ -214,7 +214,7 @@ const Navbar = ({ isLight = false }: { isLight?: boolean }) => {
                 onClick={() => setIsOpen(false)}
                 className="absolute -top-32 right-0 p-4 text-foreground/50 hover:text-foreground transition-colors"
               >
-                <span className="sr-only">Close menu</span>
+                <span className="sr-only">Menü schließen</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

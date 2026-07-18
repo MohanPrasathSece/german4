@@ -21,8 +21,8 @@ const DashboardNavbar = () => {
     } catch (error) {
       toast({
         variant: "destructive",
-        title: "Logout failed",
-        description: "Could not log out securely."
+        title: "Abmeldung fehlgeschlagen",
+        description: "Konnte nicht sicher abgemeldet werden."
       });
       setIsLoggingOut(false);
     }
@@ -40,7 +40,7 @@ const DashboardNavbar = () => {
 
           <div className="flex items-center space-x-6">
             <span className="text-sm text-muted-foreground hidden sm:inline-block">
-              Welcome back
+              Willkommen zurück
             </span>
             <Button
               variant="outline"
@@ -49,10 +49,10 @@ const DashboardNavbar = () => {
               disabled={isLoggingOut}
               className="rounded-full px-6"
             >
-              {isLoggingOut ? "Logging out..." : (
+              {isLoggingOut ? "Abmelden..." : (
                 <>
                   <LogOut className="w-4 h-4 mr-2" />
-                  Logout
+                  Abmelden
                 </>
               )}
             </Button>
