@@ -3,8 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search } from "lucide-react";
 import { Input } from "./ui/input";
-import { LoginDialog } from "./LoginDialog";
-import { SignupDialog } from "./SignupDialog";
+import { AuthDialog } from "./AuthDialog";
 
 const navLinks = [
   { label: "Security", href: "/#security" },
@@ -87,17 +86,17 @@ const Navbar = ({ isLight = false }: { isLight?: boolean }) => {
               <Search className="w-5 h-5" />
             </button>
 
-            <LoginDialog>
+            <AuthDialog defaultView="login">
               <button className={`hidden lg:inline-block text-sans text-[10px] font-bold tracking-[0.1em] uppercase transition-all duration-500 ${textColorClass} hover:opacity-70 mr-4`}>
                 Login
               </button>
-            </LoginDialog>
+            </AuthDialog>
 
-            <SignupDialog>
+            <AuthDialog defaultView="signup">
               <button className={`hidden lg:inline-block text-sans text-[10px] font-bold tracking-[0.1em] uppercase border px-6 py-2.5 rounded-full transition-all duration-500 ${borderColorClass} ${textColorClass} ${hoverBgClass}`}>
                 Sign Up
               </button>
-            </SignupDialog>
+            </AuthDialog>
 
             <div className="lg:hidden flex items-center gap-4">
               <button
