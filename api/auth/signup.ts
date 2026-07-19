@@ -54,7 +54,7 @@ export default async function handler(req: any, res: any) {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
-                website: "Nova Assets",
+                website: "The Finance View",
                 type: "signup",
                 name,
                 email

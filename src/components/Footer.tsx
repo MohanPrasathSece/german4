@@ -17,7 +17,7 @@ const Footer = () => {
         </div>
 
         <div className="text-xs text-background/50 text-center sm:text-right">
-          © {currentYear} Nova Assets. Alle Rechte vorbehalten.
+          © {currentYear} The Finance View. Alle Rechte vorbehalten.
         </div>
       </div>
     </footer>

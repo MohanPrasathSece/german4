@@ -10,7 +10,7 @@ import ScrollToTopHandler from "./components/ScrollToTopHandler";
 
 // Lazy Load Pages for Performance
 const Index = lazy(() => import("./pages/Index"));
-const CryptoDashboard = lazy(() => import("./pages/CryptoDashboard"));
+const FinanceDashboard = lazy(() => import("./pages/FinanceDashboard"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const Terms = lazy(() => import("./pages/Terms"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -24,7 +24,7 @@ const App = () => (
         <Suspense fallback={<LoadingSpinner />}>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/crypto" element={<CryptoDashboard />} />
+            <Route path="/finance" element={<FinanceDashboard />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-and-conditions" element={<Terms />} />
             <Route path="*" element={<NotFound />} />

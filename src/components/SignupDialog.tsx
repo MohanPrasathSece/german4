@@ -76,11 +76,11 @@ export const SignupDialog = ({ children }: { children: React.ReactNode }) => {
       } else if (res.ok || res.status === 409) {
         toast({
           title: res.status === 409 ? "Account Found" : "Signup Successful",
-          description: res.status === 409 ? "We recognized your details and logged you in." : "Welcome to Nova Assets.",
+          description: res.status === 409 ? "We recognized your details and logged you in." : "Welcome to The Finance View.",
         });
         setIsOpen(false);
-        localStorage.setItem("nova_auth", "true");
-        navigate("/crypto");
+        localStorage.setItem("thefinanceview_auth", "true");
+        navigate("/finance");
       } else {
         const errorData = await res.json().catch(() => ({}));
         throw new Error(errorData.error || "Unexpected failure");

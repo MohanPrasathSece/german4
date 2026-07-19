@@ -6,7 +6,7 @@ import SEO from "@/components/SEO";
 const PrivacyPolicy = () => {
   return (
     <main className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100">
-      <SEO title="Privacy Policy | VertexIQ Crypto" description="Privacy Policy for our Crypto Investment Website" />
+      <SEO title="Privacy Policy | The Finance View Finance" description="Privacy Policy for our Finance Investment Website" />
       <Navbar />
       <div className="flex-grow max-w-4xl mx-auto px-6 py-24">
         <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>

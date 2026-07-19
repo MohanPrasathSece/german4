@@ -162,7 +162,7 @@ const Navbar = ({ isLight = false }: { isLight?: boolean }) => {
                         {(() => {
                           const searchItems = [
                             { label: "Startseite", href: "/", desc: "Zurück zur Startseite" },
-                            { label: "Dashboard", href: "/crypto", desc: "Ihr Krypto-Portfolio ansehen" },
+                            { label: "Dashboard", href: "/finance", desc: "Ihr Finanz-Portfolio ansehen" },
                             { label: "Kontakt", href: "/#contact", desc: "Kontaktieren Sie unsere Experten" },
                           ];
 

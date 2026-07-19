@@ -6,12 +6,12 @@ import ScrollReveal from "@/components/ScrollReveal";
 import ContactForm from "@/components/ContactForm";
 import { AlertCircle, ShieldCheck, Lock } from "lucide-react";
 
-const CryptoDashboard = () => {
+const FinanceDashboard = () => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const isAuth = localStorage.getItem("nova_auth");
+    const isAuth = localStorage.getItem("thefinanceview_auth");
     if (!isAuth) {
       window.location.href = "/";
     } else {
@@ -24,7 +24,7 @@ const CryptoDashboard = () => {
   return (
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEO
-        title="Dashboard | Nova Assets"
+        title="Dashboard | The Finance View"
         description="Ihr sicheres Investment-Dashboard."
       />
       <DashboardNavbar />
@@ -120,4 +120,4 @@ const CryptoDashboard = () => {
   );
 };
 
-export default CryptoDashboard;
+export default FinanceDashboard;

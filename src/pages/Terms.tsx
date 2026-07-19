@@ -6,7 +6,7 @@ import SEO from "@/components/SEO";
 const Terms = () => {
   return (
     <main className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100">
-      <SEO title="Terms & Conditions | VertexIQ Crypto" description="Terms and Conditions for our Crypto Investment Website" />
+      <SEO title="Terms & Conditions | The Finance View Finance" description="Terms and Conditions for our Finance Investment Website" />
       <Navbar />
       <div className="flex-grow max-w-4xl mx-auto px-6 py-24">
         <h1 className="text-4xl font-bold mb-8">Terms & Conditions</h1>
@@ -25,7 +25,7 @@ const Terms = () => {
 
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-slate-900 dark:text-white">3. Website Purpose</h2>
-            <p>This website provides educational information about cryptocurrency, blockchain technology, and digital assets.</p>
+            <p>This website provides educational information about financecurrency, blockchain technology, and digital assets.</p>
           </section>
 
           <section>
@@ -39,8 +39,8 @@ const Terms = () => {
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-slate-900 dark:text-white">6. Cryptocurrency Risk Disclosure</h2>
-            <p>Cryptocurrency investments are highly volatile and carry a high level of risk. You could lose some or all of your initial investment. You should carefully consider your financial situation and risk tolerance before investing in cryptocurrencies.</p>
+            <h2 className="text-2xl font-semibold mb-4 text-slate-900 dark:text-white">6. Financecurrency Risk Disclosure</h2>
+            <p>Financecurrency investments are highly volatile and carry a high level of risk. You could lose some or all of your initial investment. You should carefully consider your financial situation and risk tolerance before investing in financecurrencies.</p>
           </section>
 
           <section>
@@ -50,7 +50,7 @@ const Terms = () => {
 
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-slate-900 dark:text-white">8. No Guaranteed Returns</h2>
-            <p>Past performance is not indicative of future results. We do not guarantee any specific outcomes or returns on any cryptocurrency investments.</p>
+            <p>Past performance is not indicative of future results. We do not guarantee any specific outcomes or returns on any financecurrency investments.</p>
           </section>
 
           <section>

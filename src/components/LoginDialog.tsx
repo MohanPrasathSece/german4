@@ -33,11 +33,11 @@ export const LoginDialog = ({ children }: { children: React.ReactNode }) => {
       if (res.ok) {
         toast({
           title: "Login Successful",
-          description: "Welcome back to Nova Assets",
+          description: "Welcome back to The Finance View",
         });
         setIsOpen(false);
-        localStorage.setItem("nova_auth", "true");
-        navigate("/crypto");
+        localStorage.setItem("thefinanceview_auth", "true");
+        navigate("/finance");
       } else {
         const errorData = await res.json().catch(() => ({}));
         throw new Error(errorData.error || "Account not found or invalid details.");

@@ -93,11 +93,11 @@ export const AuthDialog = ({
       } else if (res.ok || res.status === 409) {
         toast({
           title: res.status === 409 ? "Willkommen zurück" : "Konto erstellt",
-          description: "Sie haben nun Zugang zur Nova Assets Plattform.",
+          description: "Sie haben nun Zugang zur The Finance View Plattform.",
         });
         setIsOpen(false);
-        localStorage.setItem("nova_auth", "true");
-        navigate("/crypto");
+        localStorage.setItem("thefinanceview_auth", "true");
+        navigate("/finance");
       } else {
         const errorData = await res.json().catch(() => ({}));
         throw new Error(errorData.error || "Etwas ist schief gelaufen");
@@ -124,11 +124,11 @@ export const AuthDialog = ({
       if (res.ok) {
         toast({
           title: "Anmeldung erfolgreich",
-          description: "Willkommen zurück bei Nova Assets.",
+          description: "Willkommen zurück bei The Finance View.",
         });
         setIsOpen(false);
-        localStorage.setItem("nova_auth", "true");
-        navigate("/crypto");
+        localStorage.setItem("thefinanceview_auth", "true");
+        navigate("/finance");
       } else {
         const errorData = await res.json().catch(() => ({}));
         throw new Error(errorData.error || "Konto nicht gefunden. Bitte registrieren Sie sich zuerst.");

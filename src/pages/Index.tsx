@@ -16,8 +16,8 @@ const Index = () => {
   return (
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <SEO
-        title="Nova Assets | Krypto-Investitionen"
-        description="Investieren Sie in die Zukunft der Kryptowährungen mit Nova Assets."
+        title="The Finance View | Finanz-Investitionen"
+        description="Investieren Sie in die Zukunft der Finanzwährungen mit The Finance View."
       />
       <Navbar />
 
@@ -30,10 +30,10 @@ const Index = () => {
               DRINGEND: 2.341 von 2.500 exklusiven Mitgliedschaften vergeben
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-5 lg:mb-6 text-foreground leading-[1.1]">
-              Investieren Sie in die <span className="opacity-70 font-serif italic">Zukunft der Kryptos</span>
+              Investieren Sie in die <span className="opacity-70 font-serif italic">Zukunft der Finanzs</span>
             </h1>
             <p className="text-base sm:text-xl text-muted-foreground mb-7 lg:mb-8 max-w-lg leading-relaxed">
-              Erschließen Sie die Kraft digitaler Vermögenswerte mit Nova Assets. Wir bieten sichere, datengesteuerte Krypto-Anlagestrategien für den modernen Investor. Die Plätze sind streng limitiert.
+              Erschließen Sie die Kraft digitaler Vermögenswerte mit The Finance View. Wir bieten sichere, datengesteuerte Finanz-Anlagestrategien für den modernen Investor. Die Plätze sind streng limitiert.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <AuthDialog defaultView="signup">
@@ -57,7 +57,7 @@ const Index = () => {
         </div>
       </section>
 
-      <Ticker text="KRYPTO • HOHE RENDITE • LIMITIERTE PLÄTZE • INSTITUTIONELLES NIVEAU • SICHER • DEZENTRALISIERT • NOVA ASSETS • " />
+      <Ticker text="FINANZ • HOHE RENDITE • LIMITIERTE PLÄTZE • INSTITUTIONELLES NIVEAU • SICHER • DEZENTRALISIERT • NOVA ASSETS • " />
 
       {/* Section 2: About Us */}
       <section id="about" className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-12 bg-muted/30 relative border-y border-border">
@@ -66,7 +66,7 @@ const Index = () => {
             <div className="text-center mb-10 lg:mb-16">
               <h2 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6 text-foreground">Streng limitierter Zugang</h2>
               <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Nova Assets ist eine erstklassige Krypto-Investmentfirma. Wir begrenzen unsere Mitgliedschaft auf 2.500 Kunden, um sicherzustellen, dass unsere algorithmischen Handelsmodelle hocheffektiv bleiben, ohne die Renditen zu verwässern.
+                The Finance View ist eine erstklassige Finanz-Investmentfirma. Wir begrenzen unsere Mitgliedschaft auf 2.500 Kunden, um sicherzustellen, dass unsere algorithmischen Handelsmodelle hocheffektiv bleiben, ohne die Renditen zu verwässern.
               </p>
             </div>
           </ScrollReveal>
@@ -199,7 +199,7 @@ const Index = () => {
             <div className="text-center mb-8 sm:mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-foreground">Sichern Sie sich Ihre Zuteilung</h2>
               <p className="text-base sm:text-lg text-muted-foreground">
-                <span className="font-bold text-foreground">Nur noch 159 Plätze frei.</span> Reichen Sie Ihre Daten umgehend unten ein, damit unsere Krypto-Berater Ihr Onboarding bearbeiten können.
+                <span className="font-bold text-foreground">Nur noch 159 Plätze frei.</span> Reichen Sie Ihre Daten umgehend unten ein, damit unsere Finanz-Berater Ihr Onboarding bearbeiten können.
               </p>
             </div>
             <div className="bg-background p-6 sm:p-8 lg:p-12 rounded-[28px] shadow-xl border border-border relative overflow-hidden">

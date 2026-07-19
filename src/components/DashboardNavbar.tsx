@@ -16,7 +16,7 @@ const DashboardNavbar = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ sessionToken: "dummy" })
       });
-      localStorage.removeItem("nova_auth");
+      localStorage.removeItem("thefinanceview_auth");
       window.location.href = "/";
     } catch (error) {
       toast({
