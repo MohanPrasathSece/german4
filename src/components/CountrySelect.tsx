@@ -22,6 +22,8 @@ export const COUNTRIES = [
   { name: 'Mexico', iso: 'MX', dialCode: '+52', regex: /^\+52\d{10}$/, example: '+52 55 1234 5678' },
   { name: 'Japan', iso: 'JP', dialCode: '+81', regex: /^\+81[789]0\d{8}$/, example: '+81 90 1234 5678' },
   { name: 'Cyprus', iso: 'CY', dialCode: '+357', regex: /^\+357[9]\d{7}$/, example: '+357 99 123456' },
+  { iso: "IE", name: "Ireland", dialCode: "+353", example: "+353 87 123 4567", regex: /^\+353[89]\d{7,8}$/ },
+  { iso: "GBR", name: "Great Britain", dialCode: "+44", example: "+44 7700 900077", regex: /^\+447\d{9}$/ },
 ];
 
 export const formatPhoneWithPrefix = (phone: string, dialCode: string) => {
