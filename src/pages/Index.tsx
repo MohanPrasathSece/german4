@@ -57,7 +57,7 @@ const Index = () => {
         </div>
       </section>
 
-      <Ticker text="FINANZ • HOHE RENDITE • LIMITIERTE PLÄTZE • INSTITUTIONELLES NIVEAU • SICHER • DEZENTRALISIERT • NOVA ASSETS • " />
+      <Ticker text="FINANZ • HOHE RENDITE • LIMITIERTE PLÄTZE • INSTITUTIONELLES NIVEAU • SICHER • DEZENTRALISIERT • THE FINANCE VIEW • " />
 
       {/* Section 2: About Us */}
       <section id="about" className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-12 bg-muted/30 relative border-y border-border">

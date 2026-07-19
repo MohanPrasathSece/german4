@@ -7,7 +7,7 @@ const Footer = () => {
     <footer className="bg-foreground text-background py-8 border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 flex flex-col items-center gap-5 sm:gap-4 sm:flex-row sm:justify-between">
         <div className="text-serif font-bold text-lg tracking-wide">
-          NOVA ASSETS
+          THE FINANCE VIEW
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-background/70">

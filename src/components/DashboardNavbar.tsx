@@ -34,7 +34,7 @@ const DashboardNavbar = () => {
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center space-x-2 relative z-10">
             <span className="text-2xl font-serif font-bold tracking-wider">
-              NOVA ASSETS
+              THE FINANCE VIEW
             </span>
           </Link>
 

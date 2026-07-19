@@ -162,7 +162,7 @@ export const AuthDialog = ({
 
             {/* Logo */}
             <div className="relative z-10">
-              <div className="text-white font-bold text-2xl tracking-widest">NOVA ASSETS</div>
+              <div className="text-white font-bold text-2xl tracking-widest">THE FINANCE VIEW</div>
               <div className="mt-2 h-[1px] w-12 bg-red-500" />
             </div>
 
@@ -204,7 +204,7 @@ export const AuthDialog = ({
           <div className="flex-1 bg-white flex flex-col justify-center px-6 py-8 sm:px-10 sm:py-12 rounded-r-[28px]">
             {/* Mobile logo */}
             <div className="lg:hidden mb-8">
-              <div className="font-bold text-xl tracking-widest text-gray-900">NOVA ASSETS</div>
+              <div className="font-bold text-xl tracking-widest text-gray-900">THE FINANCE VIEW</div>
               <div className="mt-1 h-[1px] w-10 bg-red-500" />
             </div>
 
